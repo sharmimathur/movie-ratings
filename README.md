@@ -1,7 +1,4 @@
-This is a template for the EDAV final project. It is based on the template created with *File, New Project..., New Directory, Book Project using bookdown* in RStudio. 
-
-
-## ABSOLUTE ESSENTIALS
+## MOVIE RATING ANALYSIS
 
 In the world of rotten tomatoes, metacritic, IMDB, and many others, movies are often picked apart
 by critics before audiences have a chance to even see the film. Although audiences often turn to these
