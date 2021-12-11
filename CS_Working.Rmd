@@ -1,0 +1,519 @@
+---
+title: "CS_Working"
+author: "Charlie Sturr"
+date: "12/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(ggnewscale)
+library(patchwork)
+library(ExcelFunctionsR)
+library(tidyverse)
+```
+
+## Correlation between audience and critic scores - aggregate 
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = critic_score)) + geom_point()
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = critic_score)) + geom_point()
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = critic_score)) + geom_point()
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = critic_score)) + geom_point()
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+## Correlation between audience and IMDB score - aggregate 
+
+```{r pressure, echo=TRUE}
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = rating)) + geom_point()
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = rating)) + geom_point()
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = rating)) + geom_point()
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = rating)) + geom_point()
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+```
+
+
+
+## Correlation between critic and IMDB score - aggregate 
+
+```{r pressure, echo=TRUE}
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = rating)) + geom_point()
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = rating)) + geom_point()
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = rating)) + geom_point()
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = rating)) + geom_point()
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+```
+
+
+
+
+
+
+
+##Box and Whisker - IMDB rating and gross 
+
+
+```{r pressure, echo=TRUE}
+
+
+correlation_df$band <- 1
+  
+  
+  
+correlation_df <- correlation_df %>%
+                  mutate(band = ifelse(rating <1, "0-0.9", 
+                                ifelse(rating<2, "1-1.9",
+                                      ifelse(rating<3,"2-2.9",
+                                             ifelse(rating<4,"3-3.9",
+                                                    ifelse(rating<5,"4-4.9",
+                                                           ifelse(rating<6,"5-5.9",
+                                                                  ifelse(rating<7,"6-6.9",
+                                                                         ifelse(rating<8,"7-7.9",
+                                                                                ifelse(rating<9,"8-8.9",
+                                                                                       ifelse(rating<=10,"9-10")))))))))))
+
+
+
+g_imdb <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_imdb
+
+```
+
+
+
+##Box and Whisker - audience rating and gross 
+
+
+```{r pressure, echo=TRUE}
+
+
+correlation_df$audience_band <- 1
+  
+correlation_df <- correlation_df %>%
+                  mutate(audience_band = ifelse(audience_score <10, "0-0.9", 
+                                ifelse(audience_score<20, "1-1.9",
+                                      ifelse(audience_score<30,"2-2.9",
+                                             ifelse(audience_score<40,"3-3.9",
+                                                    ifelse(audience_score<50,"4-4.9",
+                                                           ifelse(audience_score<60,"5-5.9",
+                                                                  ifelse(audience_score<70,"6-6.9",
+                                                                         ifelse(audience_score<80,"7-7.9",
+                                                                                ifelse(audience_score<90,"8-8.9",
+                                                                                       ifelse(audience_score<=100,"9-10","na")))))))))))
+
+
+
+g_audience <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = audience_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Audience ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_audience
+
+```
+
+
+##Box and Whisker - critic rating and gross 
+
+
+```{r pressure, echo=TRUE}
+
+
+correlation_df$critic_band <- 1
+  
+correlation_df <- correlation_df %>%
+                  mutate(critic_band = ifelse(critic_score <10, "0-0.9", 
+                                ifelse(critic_score<20, "1-1.9",
+                                      ifelse(critic_score<30,"2-2.9",
+                                             ifelse(critic_score<40,"3-3.9",
+                                                    ifelse(critic_score<50,"4-4.9",
+                                                           ifelse(critic_score<60,"5-5.9",
+                                                                  ifelse(critic_score<70,"6-6.9",
+                                                                         ifelse(critic_score<80,"7-7.9",
+                                                                                ifelse(critic_score<90,"8-8.9",
+                                                                                       ifelse(critic_score<=100,"9-10","na")))))))))))
+
+
+
+g_critic <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = critic_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Critic ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_critic
+
+```
+
+
+
+
+```{r pressure, echo=TRUE}
+
+g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
+
+```
+
+
+
+## Aggregating and filtering top earning studios 
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+
+
+studio_df <- data.frame(gross, movies$Studio)
+
+aggregate_df<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
+  arrange(desc(gross))
+
+
+
+
+```
+
+
+## Cuts by year - audience vs. critic 
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+
+year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = audience_score, y = critic_score)) + geom_point()+ 
+  geom_smooth(method=lm) +facet_wrap(~year)
+
+year_chart
+
+
+```
+
+
+
+
+## Cuts by year - imdb vs. audience 
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+
+year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = audience_score)) + geom_point()+ 
+  geom_smooth(method=lm) +facet_wrap(~year)
+
+year_chart
+
+
+```
+
+
+
+
+## Cuts by year - imdb vs. critic 
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+
+year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = critic_score)) + geom_point()+ 
+  geom_smooth(method=lm) +facet_wrap(~year)
+
+year_chart
+
+
+```
+
+
+
+
+
+## Average IMDB rating by month and year
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+month <- as.numeric(movies$month)
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- as.numeric(movies$Year)
+
+averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+
+
+months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
+years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
+
+averages_df = data.frame(columns = columns)
+averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
+  
+# assign column names
+colnames(averages_df) = years
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+
+averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
+
+my_range <- 1:12
+year_range <- 2011:2021
+
+k = 0
+
+for(i in year_range){
+  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  k = k+1
+  for(j in my_range){
+    
+    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$rating), averages_chart$month == j, averages_chart$year == i)
+    averages_df[j,k] = mean(averages_chart$rating)
+    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
+
+tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
+
+
+imdb_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
+  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
+
+```
+
+
+
+## Average audience rating by month and year
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+month <- as.numeric(movies$month)
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- as.numeric(movies$Year)
+
+averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+
+
+months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
+years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
+
+averages_df = data.frame(columns = columns)
+averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
+  
+# assign column names
+colnames(averages_df) = years
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+
+averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
+
+my_range <- 1:12
+year_range <- 2011:2021
+
+k = 0
+
+for(i in year_range){
+  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  k = k+1
+  for(j in my_range){
+    
+    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$audience_score), averages_chart$month == j, averages_chart$year == i)
+    averages_df[j,k] = mean(averages_chart$audience_score)
+    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
+
+tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
+
+
+audience_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
+  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
+
+```
+
+
+
+
+## Average critic rating by month and year
+
+```{r pressure, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+
+month <- as.numeric(movies$month)
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- as.numeric(movies$Year)
+
+averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+
+
+months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
+years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
+
+averages_df = data.frame(columns = columns)
+averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
+  
+# assign column names
+colnames(averages_df) = years
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+
+averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
+
+my_range <- 1:12
+year_range <- 2011:2021
+
+k = 0
+
+for(i in year_range){
+  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  k = k+1
+  for(j in my_range){
+    
+    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$critic_score), averages_chart$month == j, averages_chart$year == i)
+    averages_df[j,k] = mean(averages_chart$critic_score)
+    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
+
+tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
+
+tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
+
+
+critic_time <- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
+  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
+
+```
+
+
+
+
+
+
+
+
+
+## Average critic rating by month and year
+
+```{r pressure, echo=TRUE}
+
+imdb_time
+audience_time
+critic_time
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
