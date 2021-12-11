@@ -1,8 +1,7 @@
 --- 
-title: "Movie Rating Analysis"
+title: "Movie Rating Analysis Test"
 author: "Sharmi Mathur, Charlie Sturr, Ayush Baral"
 date: "`r Sys.Date()`"
-test: test
 site: bookdown::bookdown_site
 ---
 
