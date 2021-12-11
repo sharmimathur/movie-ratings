@@ -2,6 +2,7 @@
 title: "Movie Rating Analysis"
 author: "Sharmi Mathur, Charlie Sturr, Ayush Baral"
 date: "`r Sys.Date()`"
+test: test
 site: bookdown::bookdown_site
 ---
 
