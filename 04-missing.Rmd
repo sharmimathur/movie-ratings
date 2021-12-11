@@ -1,1 +1,4 @@
 # Missing values
+
+* Why did you replace spots with averages
+* Why did you choose to remove certain rows
