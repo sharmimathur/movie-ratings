@@ -27,4 +27,6 @@ make more money?
 romance / etc.?
 7. What would be the relationship between the movies, that were released on the same date?
 8. How well did the movies perform financially, when they were released on the same weekend?
+
+
 *This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.*	
