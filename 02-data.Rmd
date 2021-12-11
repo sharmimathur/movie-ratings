@@ -1,2 +1,8 @@
 # Data sources
 
+* Downloaded data from imdb
+  * tsv
+* Scraped rotten tomatoes
+  * Excel spreadsheet to csv
+* Brought together with python
+  * Merge on *whatever column names*
