@@ -7,17 +7,24 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(ggnewscale)
 library(patchwork)
 library(ExcelFunctionsR)
 library(tidyverse)
+library(rmarkdown)
+
 ```
 
 ## Correlation between audience and critic scores - aggregate 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -43,7 +50,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ## Correlation between audience and IMDB score - aggregate 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -66,7 +73,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ## Correlation between critic and IMDB score - aggregate 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -94,7 +101,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ##Box and Whisker - IMDB rating and gross 
 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 
 correlation_df$band <- 1
@@ -127,7 +134,7 @@ g_imdb
 ##Box and Whisker - audience rating and gross 
 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 
 correlation_df$audience_band <- 1
@@ -157,7 +164,7 @@ g_audience
 ##Box and Whisker - critic rating and gross 
 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 
 correlation_df$critic_band <- 1
@@ -186,7 +193,7 @@ g_critic
 
 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
 
@@ -196,7 +203,7 @@ g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
 
 ## Aggregating and filtering top earning studios 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -216,7 +223,7 @@ aggregate_df<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
 
 ## Cuts by year - audience vs. critic 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -242,7 +249,7 @@ year_chart
 
 ## Cuts by year - imdb vs. audience 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -268,7 +275,7 @@ year_chart
 
 ## Cuts by year - imdb vs. critic 
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -295,7 +302,7 @@ year_chart
 
 ## Average IMDB rating by month and year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -312,7 +319,6 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
 averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
   
 # assign column names
@@ -353,11 +359,9 @@ imdb_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+
 
 ```
 
-
-
 ## Average audience rating by month and year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -374,7 +378,7 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
+
 averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
   
 # assign column names
@@ -416,11 +420,9 @@ audience_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col
 ```
 
 
-
-
 ## Average critic rating by month and year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -437,7 +439,6 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
 averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
   
 # assign column names
@@ -481,7 +482,7 @@ critic_time <- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col(
 
 ## Average critic rating by month and year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 imdb_time
 audience_time
@@ -492,7 +493,7 @@ critic_time
 
 ## Average ratings by just year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -507,7 +508,6 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
 averages_df = data.frame(matrix(nrow = 1, ncol = length(years))) 
   
 # assign column names
@@ -550,7 +550,7 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
 
 ## Average ratings by just year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -565,7 +565,7 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
+
 averages_df = data.frame(matrix(nrow = 1, ncol = length(years))) 
   
 # assign column names
@@ -609,7 +609,7 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
 
 ## Average ratings by just year
 
-```{r pressure, echo=TRUE}
+```{r, echo=TRUE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
@@ -624,7 +624,6 @@ averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic
 
 years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
 
-averages_df = data.frame(columns = columns)
 averages_df = data.frame(matrix(nrow = 1, ncol = length(years))) 
   
 # assign column names
