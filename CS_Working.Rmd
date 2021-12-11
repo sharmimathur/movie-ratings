@@ -13,7 +13,7 @@ library(ggnewscale)
 library(patchwork)
 ```
 
-## Initial Analysis
+## Correlation between audience and critic scores - aggregate 
 
 ```{r pressure, echo=TRUE}
 
@@ -25,13 +25,6 @@ audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 
 correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-#g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = rating, y = gross)) + geom_point()
-#g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = rating, y = gross)) + geom_point()
-#g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = rating, y = gross)) + geom_point()
-#g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = rating, y = gross)) + geom_point()
-
-
 
 g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = critic_score)) + geom_point()
 g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = critic_score)) + geom_point()
@@ -46,12 +39,61 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
 
-##Box and Whisker
+## Correlation between audience and IMDB score - aggregate 
+
+```{r pressure, echo=TRUE}
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = rating)) + geom_point()
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = rating)) + geom_point()
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = rating)) + geom_point()
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = rating)) + geom_point()
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+```
+
+
+
+## Correlation between critic and IMDB score - aggregate 
+
+```{r pressure, echo=TRUE}
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = rating)) + geom_point()
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = rating)) + geom_point()
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = rating)) + geom_point()
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = rating)) + geom_point()
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+```
+
+
+
+
+
+
+
+##Box and Whisker - IMDB rating and gross 
 
 
 ```{r pressure, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
 correlation_df$band <- 1
   
@@ -71,7 +113,105 @@ correlation_df <- correlation_df %>%
 
 
 
-ggplot(data = correlation_df, mapping = aes(x = gross, y = band)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+g_imdb <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_imdb
 
 ```
+
+
+
+##Box and Whisker - audience rating and gross 
+
+
+```{r pressure, echo=TRUE}
+
+
+correlation_df$audience_band <- 1
+  
+correlation_df <- correlation_df %>%
+                  mutate(audience_band = ifelse(audience_score <10, "0-0.9", 
+                                ifelse(audience_score<20, "1-1.9",
+                                      ifelse(audience_score<30,"2-2.9",
+                                             ifelse(audience_score<40,"3-3.9",
+                                                    ifelse(audience_score<50,"4-4.9",
+                                                           ifelse(audience_score<60,"5-5.9",
+                                                                  ifelse(audience_score<70,"6-6.9",
+                                                                         ifelse(audience_score<80,"7-7.9",
+                                                                                ifelse(audience_score<90,"8-8.9",
+                                                                                       ifelse(audience_score<=100,"9-10","na")))))))))))
+
+
+
+g_audience <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = audience_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Audience ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_audience
+
+```
+
+
+##Box and Whisker - critic rating and gross 
+
+
+```{r pressure, echo=TRUE}
+
+
+correlation_df$critic_band <- 1
+  
+correlation_df <- correlation_df %>%
+                  mutate(critic_band = ifelse(critic_score <10, "0-0.9", 
+                                ifelse(critic_score<20, "1-1.9",
+                                      ifelse(critic_score<30,"2-2.9",
+                                             ifelse(critic_score<40,"3-3.9",
+                                                    ifelse(critic_score<50,"4-4.9",
+                                                           ifelse(critic_score<60,"5-5.9",
+                                                                  ifelse(critic_score<70,"6-6.9",
+                                                                         ifelse(critic_score<80,"7-7.9",
+                                                                                ifelse(critic_score<90,"8-8.9",
+                                                                                       ifelse(critic_score<=100,"9-10","na")))))))))))
+
+
+
+g_critic <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = critic_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Critic ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_critic
+
+```
+
+
+
+
+```{r pressure, echo=TRUE}
+
+g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
