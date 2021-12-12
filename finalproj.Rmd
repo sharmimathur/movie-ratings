@@ -203,9 +203,13 @@ knitr::opts_chunk$set(warning = FALSE,
                       echo = TRUE)
 
 library(ggplot2)
-library(tidyverse)
-library(patchwork)
+library(dplyr)
 library(ggnewscale)
+library(patchwork)
+library(ExcelFunctionsR)
+library(tidyverse)
+library(rmarkdown)
+
 
 df <- read.csv("MOVIES_Final_12.11.2021_vAC.csv",na.strings=c("","MISSING VALUE"))
 ```
@@ -347,22 +351,6 @@ date: "12/11/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-
-knitr::opts_chunk$set(warning = FALSE,
-                      message = FALSE,
-                      echo = TRUE)
-library(ggplot2)
-library(dplyr)
-library(ggnewscale)
-library(patchwork)
-library(ExcelFunctionsR)
-library(tidyverse)
-library(rmarkdown)
-
-```
 
 
 
@@ -1378,22 +1366,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-
-knitr::opts_chunk$set(warning = FALSE,
-                      message = FALSE,
-                      echo = TRUE)
-library(ggplot2)
-library(dplyr)
-library(ggnewscale)
-library(patchwork)
-library(ExcelFunctionsR)
-library(tidyverse)
-library(rmarkdown)
-
-```
 
 ## Correlation between audience and critic scores - aggregate 
 
