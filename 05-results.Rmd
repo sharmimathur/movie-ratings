@@ -935,8 +935,9 @@ ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+
   geom_line()
 
 
-for_table <- data.frame(gross, movies$Studio, movies$Year, movies$Title) %>% filter(movies$Studio == c("Walt Disney Studios Motion Pictures", "Warner Bros.", "Universal Pictures", "Twentieth Century Fox", "The Weinstein Company", "Sony Pictures Entertainment (SPE)", "Paramount Pictures", "Lionsgate"))
-
+for_table <- data.frame(gross, movies$Studio, movies$Year, movies$Title) %>% filter(movies$Studio %in% c("Walt Disney Studios Motion Pictures", "Warner Bros.", "Universal Pictures", "Twentieth Century Fox", "The Weinstein Company", "Sony Pictures Entertainment (SPE)", "Paramount Pictures", "Lionsgate"))
+  
+  
 ```
 
 
