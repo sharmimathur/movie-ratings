@@ -48,7 +48,7 @@ After aggregating the three data sources, we had the following data inputs:
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 data <- head(movies, n=1)
 

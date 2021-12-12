@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<!--  -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mobility Rate Bubble Chart</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <section class="section">
+    <div class="container content">
+      <h1>Mobility Rate of Universities in California</h1>
+
+      <svg id="bubble"></svg>
+
+      <p class="is-size-7 has-text-grey">
+        Shows the median parent household income (adjusted for inflation) versus mobility rate, calculated as the percent of students with parents in the bottom 20% of income distribution that reach the top 20% in income distribution. Circles are sized by average number of students per cohort, and colored by the change in the percent of parents from the bottom 40% of income distribution from 1980 to 1991. Source: <a href="https://opportunityinsights.org/data/">https://opportunityinsights.org/data/</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- include d3.js -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- include d3-legend: https://d3-legend.susielu.com/ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js" integrity="sha256-qo76Vs9B6JAALbrTn+PcN1r09hbNLd2M78V19glOMeU=" crossorigin="anonymous"></script>
+
+  <!-- craft visualization -->
+  <script src="bubble.js"></script>
+</body>
+</html>
