@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 Filtering by &quot;Good and bad movies&quot; | Movie Rating Analysis Test</title>
+  <meta name="description" content="Chapter 14 Filtering by &quot;Good and bad movies&quot; | Movie Rating Analysis Test" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 Filtering by &quot;Good and bad movies&quot; | Movie Rating Analysis Test" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 Filtering by &quot;Good and bad movies&quot; | Movie Rating Analysis Test" />
+  
+  
+  
+
+<meta name="author" content="Sharmi Mathur, Charlie Sturr, Ayush Baral" />
+
+
+<meta name="date" content="2021-12-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="results-1.html"/>
+<link rel="next" href="interactive-component-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Movie Ratings Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#our-questions-are-as-follows"><i class="fa fa-check"></i><b>1.0.1</b> Our questions are as follows:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#rotten-tomatoes"><i class="fa fa-check"></i><b>2.1</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#imdb"><i class="fa fa-check"></i><b>2.2</b> IMDB</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#final-data-table"><i class="fa fa-check"></i><b>2.3</b> Final Data Table</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#box-office-mojo"><i class="fa fa-check"></i><b>3.1</b> Box Office Mojo</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#rotten-tomatoes-1"><i class="fa fa-check"></i><b>3.2</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#imdb-1"><i class="fa fa-check"></i><b>3.3</b> IMDB</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#aggregation"><i class="fa fa-check"></i><b>3.4</b> Aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><i class="fa fa-check"></i><b>4</b> After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points.</a><ul>
+<li class="chapter" data-level="4.1" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten"><i class="fa fa-check"></i><b>4.1</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-audience-score---aggregate"><i class="fa fa-check"></i><b>5.1</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-critic-score---aggregate"><i class="fa fa-check"></i><b>5.2</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>5.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html"><i class="fa fa-check"></i><b>6</b> Filtering by &quot;Good and bad movies&quot;</a><ul>
+<li class="chapter" data-level="6.1" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-audience-score---aggregate-1"><i class="fa fa-check"></i><b>6.1</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="6.2" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-critic-score---aggregate-1"><i class="fa fa-check"></i><b>6.2</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="6.3" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>6.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="6.4" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-audience-and-critic-scores---aggregate"><i class="fa fa-check"></i><b>6.4</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="6.5" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-audience-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.5</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="6.6" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-critic-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.6</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="6.7" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---imdb-rating-and-gross"><i class="fa fa-check"></i><b>6.7</b> Box and Whisker - IMDB rating and gross</a></li>
+<li class="chapter" data-level="6.8" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---audience-rating-and-gross"><i class="fa fa-check"></i><b>6.8</b> Box and Whisker - audience rating and gross</a></li>
+<li class="chapter" data-level="6.9" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---critic-rating-and-gross"><i class="fa fa-check"></i><b>6.9</b> Box and Whisker - critic rating and gross</a></li>
+<li class="chapter" data-level="6.10" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-and-filtering-top-earning-studios"><i class="fa fa-check"></i><b>6.10</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="6.11" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---audience-vs.-critic"><i class="fa fa-check"></i><b>6.11</b> Cuts by year - audience vs. critic</a></li>
+<li class="chapter" data-level="6.12" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---imdb-vs.-audience"><i class="fa fa-check"></i><b>6.12</b> Cuts by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="6.13" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---imdb-vs.-critic"><i class="fa fa-check"></i><b>6.13</b> Cuts by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="6.14" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-imdb-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.14</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="6.15" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-audience-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.15</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="6.16" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-critic-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.16</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="6.17" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-critic-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>6.17</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="6.18" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year"><i class="fa fa-check"></i><b>6.18</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.19" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year-1"><i class="fa fa-check"></i><b>6.19</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.20" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year-2"><i class="fa fa-check"></i><b>6.20</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.21" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#by-genre"><i class="fa fa-check"></i><b>6.21</b> by genre</a></li>
+<li class="chapter" data-level="6.22" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-and-filtering-top-earning-studios-1"><i class="fa fa-check"></i><b>6.22</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="6.23" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-gross-and-total-gross"><i class="fa fa-check"></i><b>6.23</b> Aggregating gross and total gross</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a><ul>
+<li class="chapter" data-level="8.1" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-critic-scores---aggregate-1"><i class="fa fa-check"></i><b>8.1</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="8.2" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>8.2</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="8.3" data-path="conclusion.html"><a href="conclusion.html#correlation-between-critic-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>8.3</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="8.4" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---imdb-rating-and-gross-1"><i class="fa fa-check"></i><b>8.4</b> Box and Whisker - IMDB rating and gross</a></li>
+<li class="chapter" data-level="8.5" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---audience-rating-and-gross-1"><i class="fa fa-check"></i><b>8.5</b> Box and Whisker - audience rating and gross</a></li>
+<li class="chapter" data-level="8.6" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---critic-rating-and-gross-1"><i class="fa fa-check"></i><b>8.6</b> Box and Whisker - critic rating and gross</a></li>
+<li class="chapter" data-level="8.7" data-path="conclusion.html"><a href="conclusion.html#aggregating-and-filtering-top-earning-studios-2"><i class="fa fa-check"></i><b>8.7</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="8.8" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---audience-vs.-critic-1"><i class="fa fa-check"></i><b>8.8</b> Cuts by year - audience vs. critic</a></li>
+<li class="chapter" data-level="8.9" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-audience-1"><i class="fa fa-check"></i><b>8.9</b> Cuts by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="8.10" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-critic-1"><i class="fa fa-check"></i><b>8.10</b> Cuts by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="8.11" data-path="conclusion.html"><a href="conclusion.html#average-imdb-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>8.11</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="8.12" data-path="conclusion.html"><a href="conclusion.html#average-audience-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>8.12</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="8.13" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>8.13</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="8.14" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>8.14</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="8.15" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-3"><i class="fa fa-check"></i><b>8.15</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="8.16" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-4"><i class="fa fa-check"></i><b>8.16</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="8.17" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-5"><i class="fa fa-check"></i><b>8.17</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="8.18" data-path="conclusion.html"><a href="conclusion.html#by-genre-1"><i class="fa fa-check"></i><b>8.18</b> by genre</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>9</b> Introduction</a><ul>
+<li class="chapter" data-level="9.0.1" data-path="introduction-1.html"><a href="introduction-1.html#our-questions-are-as-follows-1"><i class="fa fa-check"></i><b>9.0.1</b> Our questions are as follows:</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="data-sources-1.html"><a href="data-sources-1.html"><i class="fa fa-check"></i><b>10</b> Data sources</a><ul>
+<li class="chapter" data-level="10.1" data-path="data-sources-1.html"><a href="data-sources-1.html#rotten-tomatoes-2"><i class="fa fa-check"></i><b>10.1</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="10.2" data-path="data-sources-1.html"><a href="data-sources-1.html#imdb-2"><i class="fa fa-check"></i><b>10.2</b> IMDB</a></li>
+<li class="chapter" data-level="10.3" data-path="data-sources-1.html"><a href="data-sources-1.html#final-data-table-1"><i class="fa fa-check"></i><b>10.3</b> Final Data Table</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="data-transformation-1.html"><a href="data-transformation-1.html"><i class="fa fa-check"></i><b>11</b> Data transformation</a><ul>
+<li class="chapter" data-level="11.1" data-path="data-transformation-1.html"><a href="data-transformation-1.html#box-office-mojo-1"><i class="fa fa-check"></i><b>11.1</b> Box Office Mojo</a></li>
+<li class="chapter" data-level="11.2" data-path="data-transformation-1.html"><a href="data-transformation-1.html#rotten-tomatoes-3"><i class="fa fa-check"></i><b>11.2</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="11.3" data-path="data-transformation-1.html"><a href="data-transformation-1.html#imdb-3"><i class="fa fa-check"></i><b>11.3</b> IMDB</a></li>
+<li class="chapter" data-level="11.4" data-path="data-transformation-1.html"><a href="data-transformation-1.html#aggregation-1"><i class="fa fa-check"></i><b>11.4</b> Aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><i class="fa fa-check"></i><b>12</b> After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points.</a><ul>
+<li class="chapter" data-level="12.1" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten-1"><i class="fa fa-check"></i><b>12.1</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>13</b> Results</a><ul>
+<li class="chapter" data-level="13.1" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-audience-score---aggregate-2"><i class="fa fa-check"></i><b>13.1</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="13.2" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-critic-score---aggregate-2"><i class="fa fa-check"></i><b>13.2</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="13.3" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>13.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html"><i class="fa fa-check"></i><b>14</b> Filtering by &quot;Good and bad movies&quot;</a><ul>
+<li class="chapter" data-level="14.1" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-audience-score---aggregate-3"><i class="fa fa-check"></i><b>14.1</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="14.2" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-critic-score---aggregate-3"><i class="fa fa-check"></i><b>14.2</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="14.3" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>14.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="14.4" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-audience-and-critic-scores---aggregate-2"><i class="fa fa-check"></i><b>14.4</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="14.5" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-audience-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>14.5</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="14.6" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-critic-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>14.6</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="14.7" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---imdb-rating-and-gross-2"><i class="fa fa-check"></i><b>14.7</b> Box and Whisker - IMDB rating and gross</a></li>
+<li class="chapter" data-level="14.8" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---audience-rating-and-gross-2"><i class="fa fa-check"></i><b>14.8</b> Box and Whisker - audience rating and gross</a></li>
+<li class="chapter" data-level="14.9" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---critic-rating-and-gross-2"><i class="fa fa-check"></i><b>14.9</b> Box and Whisker - critic rating and gross</a></li>
+<li class="chapter" data-level="14.10" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-and-filtering-top-earning-studios-3"><i class="fa fa-check"></i><b>14.10</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="14.11" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---audience-vs.-critic-2"><i class="fa fa-check"></i><b>14.11</b> Cuts by year - audience vs. critic</a></li>
+<li class="chapter" data-level="14.12" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---imdb-vs.-audience-2"><i class="fa fa-check"></i><b>14.12</b> Cuts by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="14.13" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---imdb-vs.-critic-2"><i class="fa fa-check"></i><b>14.13</b> Cuts by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="14.14" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-imdb-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>14.14</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="14.15" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-audience-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>14.15</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="14.16" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-critic-rating-by-month-and-year-4"><i class="fa fa-check"></i><b>14.16</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="14.17" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-critic-rating-by-month-and-year-5"><i class="fa fa-check"></i><b>14.17</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="14.18" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-6"><i class="fa fa-check"></i><b>14.18</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="14.19" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-7"><i class="fa fa-check"></i><b>14.19</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="14.20" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-8"><i class="fa fa-check"></i><b>14.20</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="14.21" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#by-genre-2"><i class="fa fa-check"></i><b>14.21</b> by genre</a></li>
+<li class="chapter" data-level="14.22" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-and-filtering-top-earning-studios-4"><i class="fa fa-check"></i><b>14.22</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="14.23" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-gross-and-total-gross-1"><i class="fa fa-check"></i><b>14.23</b> Aggregating gross and total gross</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="interactive-component-1.html"><a href="interactive-component-1.html"><i class="fa fa-check"></i><b>15</b> Interactive component</a></li>
+<li class="chapter" data-level="16" data-path="conclusion-1.html"><a href="conclusion-1.html"><i class="fa fa-check"></i><b>16</b> Conclusion</a><ul>
+<li class="chapter" data-level="16.1" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-audience-and-critic-scores---aggregate-3"><i class="fa fa-check"></i><b>16.1</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="16.2" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-audience-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>16.2</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="16.3" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-critic-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>16.3</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="16.4" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---imdb-rating-and-gross-3"><i class="fa fa-check"></i><b>16.4</b> Box and Whisker - IMDB rating and gross</a></li>
+<li class="chapter" data-level="16.5" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---audience-rating-and-gross-3"><i class="fa fa-check"></i><b>16.5</b> Box and Whisker - audience rating and gross</a></li>
+<li class="chapter" data-level="16.6" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---critic-rating-and-gross-3"><i class="fa fa-check"></i><b>16.6</b> Box and Whisker - critic rating and gross</a></li>
+<li class="chapter" data-level="16.7" data-path="conclusion-1.html"><a href="conclusion-1.html#aggregating-and-filtering-top-earning-studios-5"><i class="fa fa-check"></i><b>16.7</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="16.8" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---audience-vs.-critic-3"><i class="fa fa-check"></i><b>16.8</b> Cuts by year - audience vs. critic</a></li>
+<li class="chapter" data-level="16.9" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---imdb-vs.-audience-3"><i class="fa fa-check"></i><b>16.9</b> Cuts by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="16.10" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---imdb-vs.-critic-3"><i class="fa fa-check"></i><b>16.10</b> Cuts by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="16.11" data-path="conclusion-1.html"><a href="conclusion-1.html#average-imdb-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>16.11</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="16.12" data-path="conclusion-1.html"><a href="conclusion-1.html#average-audience-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>16.12</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="16.13" data-path="conclusion-1.html"><a href="conclusion-1.html#average-critic-rating-by-month-and-year-6"><i class="fa fa-check"></i><b>16.13</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="16.14" data-path="conclusion-1.html"><a href="conclusion-1.html#average-critic-rating-by-month-and-year-7"><i class="fa fa-check"></i><b>16.14</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="16.15" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-9"><i class="fa fa-check"></i><b>16.15</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="16.16" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-10"><i class="fa fa-check"></i><b>16.16</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="16.17" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-11"><i class="fa fa-check"></i><b>16.17</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="16.18" data-path="conclusion-1.html"><a href="conclusion-1.html#by-genre-3"><i class="fa fa-check"></i><b>16.18</b> by genre</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Movie Rating Analysis Test</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="filtering-by-good-and-bad-movies-1" class="section level1">
+<h1><span class="header-section-number">Chapter 14</span> Filtering by &quot;Good and bad movies&quot;</h1>
+<div id="correlation-between-total-gross-and-audience-score---aggregate-3" class="section level2">
+<h2><span class="header-section-number">14.1</span> Correlation between total gross and audience score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, audience_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>, audience_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>, audience_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>, audience_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+</div>
+<div id="correlation-between-total-gross-and-critic-score---aggregate-3" class="section level2">
+<h2><span class="header-section-number">14.2</span> Correlation between total gross and critic score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, critic_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>, critic_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>,critic_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>,critic_score<span class="op">&gt;</span><span class="dv">50</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+</div>
+<div id="correlation-between-total-gross-and-imdb-score---aggregate-3" class="section level2">
+<h2><span class="header-section-number">14.3</span> Correlation between total gross and IMDB score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, rating<span class="op">&gt;</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>, rating<span class="op">&gt;</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>, rating<span class="op">&gt;</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>, rating<span class="op">&gt;</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+</div>
+<div id="correlation-between-audience-and-critic-scores---aggregate-2" class="section level2">
+<h2><span class="header-section-number">14.4</span> Correlation between audience and critic scores - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+</div>
+<div id="correlation-between-audience-and-imdb-score---aggregate-2" class="section level2">
+<h2><span class="header-section-number">14.5</span> Correlation between audience and IMDB score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-critic-and-imdb-score---aggregate-2" class="section level2">
+<h2><span class="header-section-number">14.6</span> Correlation between critic and IMDB score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> rating)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---imdb-rating-and-gross-2" class="section level2">
+<h2><span class="header-section-number">14.7</span> Box and Whisker - IMDB rating and gross</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">correlation_df<span class="op">$</span>band &lt;-<span class="st"> </span><span class="dv">1</span>
+  
+  
+  
+correlation_df &lt;-<span class="st"> </span>correlation_df <span class="op">%&gt;%</span>
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">band =</span> <span class="kw">ifelse</span>(rating <span class="op">&lt;</span><span class="dv">1</span>, <span class="st">&quot;0-0.9&quot;</span>, 
+                                <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">2</span>, <span class="st">&quot;1-1.9&quot;</span>,
+                                      <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">3</span>,<span class="st">&quot;2-2.9&quot;</span>,
+                                             <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">4</span>,<span class="st">&quot;3-3.9&quot;</span>,
+                                                    <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">5</span>,<span class="st">&quot;4-4.9&quot;</span>,
+                                                           <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">6</span>,<span class="st">&quot;5-5.9&quot;</span>,
+                                                                  <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">7</span>,<span class="st">&quot;6-6.9&quot;</span>,
+                                                                         <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">8</span>,<span class="st">&quot;7-7.9&quot;</span>,
+                                                                                <span class="kw">ifelse</span>(rating<span class="op">&lt;</span><span class="dv">9</span>,<span class="st">&quot;8-8.9&quot;</span>,
+                                                                                       <span class="kw">ifelse</span>(rating<span class="op">&lt;=</span><span class="dv">10</span>,<span class="st">&quot;9-10&quot;</span>)))))))))))
+
+
+
+g_imdb &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> band)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by IMDB ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+g_imdb</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---audience-rating-and-gross-2" class="section level2">
+<h2><span class="header-section-number">14.8</span> Box and Whisker - audience rating and gross</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">correlation_df<span class="op">$</span>audience_band &lt;-<span class="st"> </span><span class="dv">1</span>
+  
+correlation_df &lt;-<span class="st"> </span>correlation_df <span class="op">%&gt;%</span>
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">audience_band =</span> <span class="kw">ifelse</span>(audience_score <span class="op">&lt;</span><span class="dv">10</span>, <span class="st">&quot;0-0.9&quot;</span>, 
+                                <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">20</span>, <span class="st">&quot;1-1.9&quot;</span>,
+                                      <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">30</span>,<span class="st">&quot;2-2.9&quot;</span>,
+                                             <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">40</span>,<span class="st">&quot;3-3.9&quot;</span>,
+                                                    <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">50</span>,<span class="st">&quot;4-4.9&quot;</span>,
+                                                           <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">60</span>,<span class="st">&quot;5-5.9&quot;</span>,
+                                                                  <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">70</span>,<span class="st">&quot;6-6.9&quot;</span>,
+                                                                         <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">80</span>,<span class="st">&quot;7-7.9&quot;</span>,
+                                                                                <span class="kw">ifelse</span>(audience_score<span class="op">&lt;</span><span class="dv">90</span>,<span class="st">&quot;8-8.9&quot;</span>,
+                                                                                       <span class="kw">ifelse</span>(audience_score<span class="op">&lt;=</span><span class="dv">100</span>,<span class="st">&quot;9-10&quot;</span>,<span class="st">&quot;na&quot;</span>)))))))))))
+
+
+
+g_audience &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> audience_band)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by Audience ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+g_audience</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---critic-rating-and-gross-2" class="section level2">
+<h2><span class="header-section-number">14.9</span> Box and Whisker - critic rating and gross</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">correlation_df<span class="op">$</span>critic_band &lt;-<span class="st"> </span><span class="dv">1</span>
+  
+correlation_df &lt;-<span class="st"> </span>correlation_df <span class="op">%&gt;%</span>
+<span class="st">                  </span><span class="kw">mutate</span>(<span class="dt">critic_band =</span> <span class="kw">ifelse</span>(critic_score <span class="op">&lt;</span><span class="dv">10</span>, <span class="st">&quot;0-0.9&quot;</span>, 
+                                <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">20</span>, <span class="st">&quot;1-1.9&quot;</span>,
+                                      <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">30</span>,<span class="st">&quot;2-2.9&quot;</span>,
+                                             <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">40</span>,<span class="st">&quot;3-3.9&quot;</span>,
+                                                    <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">50</span>,<span class="st">&quot;4-4.9&quot;</span>,
+                                                           <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">60</span>,<span class="st">&quot;5-5.9&quot;</span>,
+                                                                  <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">70</span>,<span class="st">&quot;6-6.9&quot;</span>,
+                                                                         <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">80</span>,<span class="st">&quot;7-7.9&quot;</span>,
+                                                                                <span class="kw">ifelse</span>(critic_score<span class="op">&lt;</span><span class="dv">90</span>,<span class="st">&quot;8-8.9&quot;</span>,
+                                                                                       <span class="kw">ifelse</span>(critic_score<span class="op">&lt;=</span><span class="dv">100</span>,<span class="st">&quot;9-10&quot;</span>,<span class="st">&quot;na&quot;</span>)))))))))))
+
+
+
+g_critic &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> critic_band)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by Critic ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+g_critic</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_imdb <span class="op">+</span><span class="st"> </span>g_audience <span class="op">+</span><span class="st"> </span>g_critic <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="dv">3</span>, <span class="dt">heights =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="aggregating-and-filtering-top-earning-studios-3" class="section level2">
+<h2><span class="header-section-number">14.10</span> Aggregating and filtering top earning studios</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+
+
+studio_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, movies<span class="op">$</span>Studio)
+
+aggregate_df&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>movies.Studio, <span class="dt">data=</span>studio_df, sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))</code></pre></div>
+</div>
+<div id="cuts-by-year---audience-vs.-critic-2" class="section level2">
+<h2><span class="header-section-number">14.11</span> Cuts by year - audience vs. critic</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span>movies<span class="op">$</span>Year
+
+total_year &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, gross, rating, audience_score, critic_score, year)
+
+year_chart &lt;-<span class="st"> </span><span class="kw">ggplot</span>(total_year <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
+
+year_chart</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
+<div id="cuts-by-year---imdb-vs.-audience-2" class="section level2">
+<h2><span class="header-section-number">14.12</span> Cuts by year - imdb vs. audience</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span>movies<span class="op">$</span>Year
+
+total_year &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, gross, rating, audience_score, critic_score, year)
+
+year_chart &lt;-<span class="st"> </span><span class="kw">ggplot</span>(total_year <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> audience_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
+
+year_chart</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="cuts-by-year---imdb-vs.-critic-2" class="section level2">
+<h2><span class="header-section-number">14.13</span> Cuts by year - imdb vs. critic</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span>movies<span class="op">$</span>Year
+
+total_year &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, gross, rating, audience_score, critic_score, year)
+
+year_chart &lt;-<span class="st"> </span><span class="kw">ggplot</span>(total_year <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">500</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> critic_score)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span><span class="kw">facet_wrap</span>(<span class="op">~</span>year)
+
+year_chart</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="average-imdb-rating-by-month-and-year-2" class="section level2">
+<h2><span class="header-section-number">14.14</span> Average IMDB rating by month and year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+
+months &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>))
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">12</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+
+averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2012</span>)
+
+my_range &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">0</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+  averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  <span class="cf">for</span>(j <span class="cf">in</span> my_range){
+    
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>rating), averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span>j, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[j,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>rating)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+tidy_averages &lt;-<span class="st"> </span>averages_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">!</span>month, <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;averages&quot;</span>)
+
+tidy_averages<span class="op">$</span>Date &lt;-<span class="st"> </span><span class="kw">with</span>(tidy_averages, <span class="kw">sprintf</span>(<span class="st">&quot;%s-%02s&quot;</span>, year, month))
+
+
+imdb_time&lt;-<span class="st"> </span><span class="kw">ggplot</span>(tidy_averages, <span class="kw">aes</span>(Date, averages, <span class="dt">fill=</span>year)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+</div>
+<div id="average-audience-rating-by-month-and-year-2" class="section level2">
+<h2><span class="header-section-number">14.15</span> Average audience rating by month and year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+
+months &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>))
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">12</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+
+averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2012</span>)
+
+my_range &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">0</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+  averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  <span class="cf">for</span>(j <span class="cf">in</span> my_range){
+    
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>audience_score), averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span>j, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[j,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>audience_score)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+tidy_averages &lt;-<span class="st"> </span>averages_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">!</span>month, <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;averages&quot;</span>)
+
+tidy_averages<span class="op">$</span>Date &lt;-<span class="st"> </span><span class="kw">with</span>(tidy_averages, <span class="kw">sprintf</span>(<span class="st">&quot;%s-%02s&quot;</span>, year, month))
+
+
+audience_time&lt;-<span class="st"> </span><span class="kw">ggplot</span>(tidy_averages, <span class="kw">aes</span>(Date, averages, <span class="dt">fill=</span>year)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+</div>
+<div id="average-critic-rating-by-month-and-year-4" class="section level2">
+<h2><span class="header-section-number">14.16</span> Average critic rating by month and year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+
+months &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>))
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">12</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+
+averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">5</span>, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2012</span>)
+
+my_range &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">12</span>
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">0</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+  averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  <span class="cf">for</span>(j <span class="cf">in</span> my_range){
+    
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>critic_score), averages_chart<span class="op">$</span>month <span class="op">==</span><span class="st"> </span>j, averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[j,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>critic_score)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+  }
+    
+}
+
+
+averages_df<span class="op">$</span>month =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>)
+
+tidy_averages &lt;-<span class="st"> </span>averages_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">!</span>month, <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;averages&quot;</span>)
+
+tidy_averages<span class="op">$</span>Date &lt;-<span class="st"> </span><span class="kw">with</span>(tidy_averages, <span class="kw">sprintf</span>(<span class="st">&quot;%s-%02s&quot;</span>, year, month))
+
+
+critic_time &lt;-<span class="st"> </span><span class="kw">ggplot</span>(tidy_averages, <span class="kw">aes</span>(Date, averages, <span class="dt">fill=</span>year)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+</div>
+<div id="average-critic-rating-by-month-and-year-5" class="section level2">
+<h2><span class="header-section-number">14.17</span> Average critic rating by month and year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">imdb_time</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">audience_time</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">critic_time</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-30-3.png" width="672" /></p>
+</div>
+<div id="average-ratings-by-just-year-6" class="section level2">
+<h2><span class="header-section-number">14.18</span> Average ratings by just year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">1</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>rating), averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[<span class="dv">1</span>,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>rating)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+    k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  }
+    
+
+averages_df[<span class="kw">nrow</span>(averages_df) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,] =<span class="st"> </span>years
+
+
+averages_transposed =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(averages_df))
+
+
+<span class="kw">names</span>(averages_transposed)[<span class="dv">2</span>] &lt;-<span class="st"> &quot;years&quot;</span>
+<span class="kw">names</span>(averages_transposed)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;avg&quot;</span>
+
+
+<span class="co">#tidy_averages &lt;- averages_df %&gt;% pivot_longer(!month, names_to = &quot;year&quot;, values_to = &quot;averages&quot;)</span>
+
+<span class="co">#tidy_averages$Date &lt;- with(tidy_averages, sprintf(&quot;%s-%02s&quot;, year, month))</span>
+
+
+<span class="kw">ggplot</span>(averages_transposed, <span class="kw">aes</span>(years, avg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
+<div id="average-ratings-by-just-year-7" class="section level2">
+<h2><span class="header-section-number">14.19</span> Average ratings by just year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">1</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>audience_score), averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[<span class="dv">1</span>,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>audience_score)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+    k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  }
+    
+
+averages_df[<span class="kw">nrow</span>(averages_df) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,] =<span class="st"> </span>years
+
+
+averages_transposed =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(averages_df))
+
+
+<span class="kw">names</span>(averages_transposed)[<span class="dv">2</span>] &lt;-<span class="st"> &quot;years&quot;</span>
+<span class="kw">names</span>(averages_transposed)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;avg&quot;</span>
+
+
+<span class="co">#tidy_averages &lt;- averages_df %&gt;% pivot_longer(!month, names_to = &quot;year&quot;, values_to = &quot;averages&quot;)</span>
+
+<span class="co">#tidy_averages$Date &lt;- with(tidy_averages, sprintf(&quot;%s-%02s&quot;, year, month))</span>
+
+
+<span class="kw">ggplot</span>(averages_transposed, <span class="kw">aes</span>(years, avg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+</div>
+<div id="average-ratings-by-just-year-8" class="section level2">
+<h2><span class="header-section-number">14.20</span> Average ratings by just year</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+
+month &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>month)
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+year &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Year)
+
+averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+
+years =<span class="st"> </span><span class="kw">c</span>(<span class="dv">2011</span>,<span class="dv">2012</span>,<span class="dv">2013</span>,<span class="dv">2014</span>,<span class="dv">2015</span>,<span class="dv">2016</span>,<span class="dv">2017</span>,<span class="dv">2018</span>,<span class="dv">2019</span>,<span class="dv">2020</span>,<span class="dv">2021</span>)
+
+averages_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(years))) 
+  
+<span class="co"># assign column names</span>
+<span class="kw">colnames</span>(averages_df) =<span class="st"> </span>years
+
+
+year_range &lt;-<span class="st"> </span><span class="dv">2011</span><span class="op">:</span><span class="dv">2021</span>
+
+k =<span class="st"> </span><span class="dv">1</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> year_range){
+    averages_chart &lt;-<span class="st"> </span>averages_chart <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(averages_chart<span class="op">$</span>critic_score), averages_chart<span class="op">$</span>year <span class="op">==</span><span class="st"> </span>i)
+    averages_df[<span class="dv">1</span>,k] =<span class="st"> </span><span class="kw">mean</span>(averages_chart<span class="op">$</span>critic_score)
+    averages_chart &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, month, rating, audience_score, critic_score, year)
+    k =<span class="st"> </span>k<span class="op">+</span><span class="dv">1</span>
+  }
+    
+
+averages_df[<span class="kw">nrow</span>(averages_df) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,] =<span class="st"> </span>years
+
+
+averages_transposed =<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(averages_df))
+
+
+<span class="kw">names</span>(averages_transposed)[<span class="dv">2</span>] &lt;-<span class="st"> &quot;years&quot;</span>
+<span class="kw">names</span>(averages_transposed)[<span class="dv">1</span>] &lt;-<span class="st"> &quot;avg&quot;</span>
+
+
+<span class="co">#tidy_averages &lt;- averages_df %&gt;% pivot_longer(!month, names_to = &quot;year&quot;, values_to = &quot;averages&quot;)</span>
+
+<span class="co">#tidy_averages$Date &lt;- with(tidy_averages, sprintf(&quot;%s-%02s&quot;, year, month))</span>
+
+
+<span class="kw">ggplot</span>(averages_transposed, <span class="kw">aes</span>(years, avg)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_col</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">65</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) </code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+</div>
+<div id="by-genre-2" class="section level2">
+<h2><span class="header-section-number">14.21</span> by genre</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+<span class="kw">head</span>(movies)</code></pre></div>
+<pre><code>##   Rank                                        Title     Gross X..of.Theaters
+## 1    1 Harry Potter and the Deathly Hallows: Part 2 381011219           4375
+## 2    2               Transformers: Dark of the Moon 352390543           4088
+## 3    3    The Twilight Saga: Breaking Dawn - Part 1 274841954           4066
+## 4    4                         The Hangover Part II 254464305           3675
+## 5    5  Pirates of the Caribbean: On Stranger Tides 241071802           4164
+## 6    6                                    Fast Five 209837675           3793
+##   Total.Gross Release.Date                              Studio Year
+## 1   381011219         7/15                        Warner Bros. 2011
+## 2   352390543         6/29                          DreamWorks 2011
+## 3   281287133        11/18                Summit Entertainment 2011
+## 4   254464305         5/26                        Warner Bros. 2011
+## 5   241071802         5/20 Walt Disney Studios Motion Pictures 2011
+## 6   209837675         4/29                  Universal Pictures 2011
+##   Score_Rotten Score_Audience                     genre    genre1    genre2
+## 1           96             89 Adventure,Fantasy,Mystery Adventure   Fantasy
+## 2           35             55   Action,Adventure,Sci-Fi    Action Adventure
+## 3           25             60   Adventure,Drama,Fantasy Adventure     Drama
+## 4           34             52                    Comedy    Comedy          
+## 5           33             54  Action,Adventure,Fantasy    Action Adventure
+## 6           77             83    Action,Adventure,Crime    Action Adventure
+##    genre3 average_rating numvotes startYear MISSING.VALUE Missing.Rotten
+## 1 Mystery            8.1   808813      2011             0              0
+## 2  Sci-Fi            6.2   395497      2011             0              0
+## 3 Fantasy            4.9   232357      2011             0              0
+## 4                    6.5   479995      2011             0              0
+## 5 Fantasy            6.6   500148      2011             0              0
+## 6   Crime            7.3   368386      2011             0              0
+##   Missing.IMDB day month final_date
+## 1            0  15     7  7/15/2011
+## 2            0  29     6  6/29/2011
+## 3            0  18    11 11/18/2011
+## 4            0  26     5  5/26/2011
+## 5            0  20     5  5/20/2011
+## 6            0  29     4  4/29/2011</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+genre_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(movies<span class="op">$</span>Title, gross, audience_score, critic_score, rating, movies<span class="op">$</span>genre1, movies<span class="op">$</span>genre2, movies<span class="op">$</span>genre3, movies<span class="op">$</span>genre)
+<span class="kw">colnames</span>(genre_df) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;title&quot;</span>, <span class="st">&quot;gross&quot;</span>, <span class="st">&quot;score_audience&quot;</span>, <span class="st">&quot;score_rotten&quot;</span>, <span class="st">&quot;average_rating&quot;</span>, <span class="st">&quot;genre1&quot;</span>, <span class="st">&quot;genre2&quot;</span>, <span class="st">&quot;genre3&quot;</span>, <span class="st">&quot;genre&quot;</span>)
+
+aggregate_genre1&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>genre1, <span class="dt">data=</span>genre_df, sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))
+
+aggregate_genre2&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>genre2, <span class="dt">data=</span>genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(genre_df<span class="op">$</span>genre2 <span class="op">!=</span><span class="st"> &quot;&quot;</span>), sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))
+
+aggregate_genre3&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>genre3, <span class="dt">data=</span>genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(genre_df<span class="op">$</span>genre3 <span class="op">!=</span><span class="st"> &quot;&quot;</span>), sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))
+
+aggregate_genre &lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>genre, <span class="dt">data=</span>genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(genre_df<span class="op">$</span>genre <span class="op">!=</span><span class="st"> &quot;&quot;</span>), sum) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))
+
+
+genre1_unique &lt;-<span class="st"> </span><span class="kw">unique</span>(genre_df<span class="op">$</span>genre1)
+genre2_unique &lt;-<span class="st"> </span><span class="kw">unique</span>(genre_df<span class="op">$</span>genre2)
+genre3_unique &lt;-<span class="st"> </span><span class="kw">unique</span>(genre_df<span class="op">$</span>genre3)
+
+genre_unique &lt;-<span class="st"> </span><span class="kw">unique</span>(genre_df<span class="op">$</span>genre)
+
+
+g_genre1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> genre1)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by IMDB ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+
+g_genre2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> genre2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by IMDB ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+
+g_genre3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> gross, <span class="dt">y =</span> genre3)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;gross&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;ratings band&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Box Plot of gross by IMDB ratings band&quot;</span>)<span class="op">+</span><span class="st">   </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))
+
+
+
+
+g_genre1</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_genre2</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_genre3</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-34-3.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genre_filtered &lt;-<span class="st"> </span>genre_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross<span class="op">&gt;</span><span class="dv">50</span>, genre1 <span class="op">==</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Action&quot;</span>, <span class="st">&quot;Adventure&quot;</span>, <span class="st">&quot;Comedy&quot;</span>, <span class="st">&quot;Biography&quot;</span>, <span class="st">&quot;Horror&quot;</span>, <span class="st">&quot;Documentary&quot;</span>, <span class="st">&quot;Animation&quot;</span>), score_audience <span class="op">!=</span><span class="st"> &quot;MISSING VALUE&quot;</span>)
+
+
+genre_correlation &lt;-<span class="st"> </span><span class="kw">ggplot</span>(genre_filtered, <span class="kw">aes</span>(<span class="dt">x =</span> score_audience, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span>lm) <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>genre1)
+
+genre_correlation</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-34-4.png" width="672" /></p>
+</div>
+<div id="aggregating-and-filtering-top-earning-studios-4" class="section level2">
+<h2><span class="header-section-number">14.22</span> Aggregating and filtering top earning studios</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+
+
+studio_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, movies<span class="op">$</span>Studio, movies<span class="op">$</span>Year)
+
+total_by_studio&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>movies.Studio, <span class="dt">data=</span>studio_df, sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross))
+
+aggregate_df&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>movies.Studio<span class="op">+</span>movies.Year, <span class="dt">data=</span>studio_df, sum) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(gross)) 
+
+final_merged &lt;-<span class="st"> </span><span class="kw">merge</span>(aggregate_df, total_by_studio, <span class="st">&quot;movies.Studio&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross.y<span class="op">&gt;</span><span class="dv">20000</span>)
+
+
+<span class="kw">ggplot</span>(<span class="dt">data=</span>final_merged, <span class="kw">aes</span>(<span class="dt">x=</span>movies.Year, <span class="dt">y=</span>gross.x, <span class="dt">color =</span> movies.Studio))<span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for_table &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, movies<span class="op">$</span>Studio, movies<span class="op">$</span>Year, movies<span class="op">$</span>Title) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(movies<span class="op">$</span>Studio <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Walt Disney Studios Motion Pictures&quot;</span>, <span class="st">&quot;Warner Bros.&quot;</span>, <span class="st">&quot;Universal Pictures&quot;</span>, <span class="st">&quot;Twentieth Century Fox&quot;</span>, <span class="st">&quot;The Weinstein Company&quot;</span>, <span class="st">&quot;Sony Pictures Entertainment (SPE)&quot;</span>, <span class="st">&quot;Paramount Pictures&quot;</span>, <span class="st">&quot;Lionsgate&quot;</span>))</code></pre></div>
+</div>
+<div id="aggregating-gross-and-total-gross-1" class="section level2">
+<h2><span class="header-section-number">14.23</span> Aggregating gross and total gross</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+
+t_gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Gross)<span class="op">/</span><span class="dv">100000</span>
+
+gross_df_aggregate &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, t_gross, movies<span class="op">$</span>Year)
+
+total_by_year1&lt;-<span class="st"> </span><span class="kw">aggregate</span>(gross<span class="op">~</span>movies.Year, <span class="dt">data=</span>gross_df_aggregate, sum) 
+
+total_by_year2&lt;-<span class="st"> </span><span class="kw">aggregate</span>(t_gross<span class="op">~</span>movies.Year, <span class="dt">data=</span>gross_df_aggregate, sum) 
+
+
+year_merged &lt;-<span class="st"> </span><span class="kw">merge</span>(total_by_year1, total_by_year2, <span class="st">&quot;movies.Year&quot;</span>)
+
+g &lt;-<span class="st"> </span><span class="kw">ggplot</span>(year_merged, <span class="kw">aes</span>(movies.Year))
+
+g &lt;-<span class="st"> </span>g <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> gross), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
+g &lt;-<span class="st"> </span>g <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> t_gross), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)
+g</code></pre></div>
+<p><img src="final_proj_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#year_merged &lt;- year_merged %&gt;% pivot_longer(!movies.Year, names_to = &quot;Type of Gross&quot;, values_to = &quot;gross&quot;)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interactive-component-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/sharmimathur/movie-ratings/edit/main/05-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/sharmimathur/movie-ratings/blob/main/05-results.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

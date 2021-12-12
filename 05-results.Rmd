@@ -31,7 +31,7 @@ library(rmarkdown)
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -58,7 +58,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -87,7 +87,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -117,7 +117,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -144,7 +144,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -173,7 +173,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -201,7 +201,7 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -380,7 +380,7 @@ g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 
@@ -400,7 +400,7 @@ aggregate_df<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
@@ -426,7 +426,7 @@ year_chart
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
@@ -452,7 +452,7 @@ year_chart
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
@@ -479,7 +479,7 @@ year_chart
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -538,7 +538,7 @@ imdb_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -599,7 +599,7 @@ audience_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -670,7 +670,7 @@ critic_time
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -727,7 +727,7 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -786,7 +786,7 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -843,7 +843,7 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
 ```{r, echo=TRUE}
 
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 head(movies)
 
@@ -915,7 +915,7 @@ genre_correlation
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 gross <- as.numeric(movies$Total.Gross)/100000
 
@@ -950,7 +950,7 @@ for_table <- data.frame(gross, movies$Studio, movies$Year, movies$Title) %>% fil
 
 ```{r, echo=TRUE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 t_gross <- as.numeric(movies$Total.Gross)/100000
 gross <- as.numeric(movies$Gross)/100000
