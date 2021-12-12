@@ -24,6 +24,214 @@ library(rmarkdown)
 
 ```
 
+
+
+
+## Correlation between total gross and audience score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+## Correlation between total gross and critic score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+
+
+## Correlation between total gross and IMDB score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+#Filtering by "Good and bad movies"
+
+
+## Correlation between total gross and audience score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0, audience_score>50), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+## Correlation between total gross and critic score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0, critic_score>50), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000, critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000,critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000,critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+
+
+## Correlation between total gross and IMDB score - aggregate 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0, rating>5), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+#test 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Correlation between audience and critic scores - aggregate 
 
 ```{r, echo=TRUE}
