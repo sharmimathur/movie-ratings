@@ -1,1 +1,138 @@
-# Missing values
+---
+title: "Missing Value"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = TRUE)
+
+library(ggplot2)
+library(tidyverse)
+library(patchwork)
+library(ggnewscale)
+
+df <- read.csv("MOVIES_Final_12.11.2021_vAC.csv",na.strings=c("","MISSING VALUE"))
+```
+
+
+Here, 
+The three chart shows us in which row do we have missing values. Like from the first bar chart, we can see that we are missing more than 750 rows of data in the Genre_3 or G_3 column. Using this data gives us a bit of an idea on how to proceed with further analysis.
+
+```{r echo=FALSE}
+
+missing_plot_function <- function(data, per = FALSE){
+  
+  missing_patterns <- data.frame(is.na(data)) %>%
+  group_by_all() %>%
+  count(name = "count", sort = TRUE) %>%
+  ungroup()
+  
+  
+  missing_patterns_new <- rownames_to_column(missing_patterns, var = "label")
+  
+  label_int <- as.integer(missing_patterns_new$label)
+  missing_patterns_new$label = ordered(missing_patterns_new$label, levels = label_int)
+  
+  filled_row_label <- apply(missing_patterns_new[ , !names(missing_patterns_new) %in% c("label","count")], 1, function(x) sum(as.numeric(x)) == 0)
+  
+  missing_patterns_new["all_false"] = filled_row_label
+  
+  missing_patterns_long <- missing_patterns_new %>% pivot_longer(cols = colnames(missing_patterns_new)[!names(missing_patterns_new) %in% c("label","count", "all_false")], names_to = "label_1", values_to = "values")
+  
+  filled_row <- filter(missing_patterns_long, missing_patterns_long$all_false == TRUE)
+  
+  x_axis <- rownames(data.frame(sort(colSums(is.na(data)), decreasing = TRUE)))
+    
+
+  g3 <- ggplot()+
+    geom_tile(data = missing_patterns_long, color = "white", aes(x = factor(label_1, level = x_axis), y = fct_rev(label), fill = values))+
+    scale_fill_manual(values = c("gray", "purple"))+
+    new_scale_fill()+
+    geom_tile(data = filled_row, color = "white", aes(x = factor(label_1, level = x_axis), y = fct_rev(label), alpha = 1))
+  
+  
+  tile <- g3 +  geom_text(aes(x = round(length(x_axis)/2), y = length(filled_row_label) - which(filled_row_label)[1] + 1, label = "complete cases")) + theme(legend.position = "none") +
+    xlab("Variable") +
+    ylab("Missing Pattern")
+  
+  missing_patterns_new_b <- missing_patterns_new
+  
+  if (per) {
+    missing_patterns_new_b$count = missing_patterns_new_b$count*100/nrow(data)
+  }
+  
+  bar <- ggplot(missing_patterns_new_b, aes(x = count,
+                                          y = fct_rev(label), fill = factor(ifelse(label==which(filled_row_label)[1],"Most Nan","Normal")))) +
+    geom_bar(stat = 'identity') + 
+    theme(legend.position = "none")+
+    scale_fill_manual(name = "Area", values=c("royalblue3","skyblue"))+ 
+    xlab(ifelse(per, "% Row", "Row Count")) + 
+    ylab(NULL)
+    
+  
+  
+  newdata <- data.frame(as.list(sort(colSums(is.na(data)), decreasing = TRUE)))
+  long_data <- newdata %>% pivot_longer(cols = everything(), names_to = "labels", values_to = "count" )
+  
+  if (per) {
+    long_data$count = long_data$count*100/nrow(data)
+  }
+  
+  top<- ggplot(long_data, aes(x = factor(labels, level = x_axis), y = count))+
+    geom_bar(stat = "identity") +
+    xlab(NULL) +
+    ylab(ifelse(per, "% Rows Missing", "Num Rows Missing"))
+  
+  
+  top + plot_spacer() + tile + bar + 
+    plot_layout(widths = c(3, 1), heights = c(1,3))
+  
+}
+
+new_df <- df
+names(new_df) <- abbreviate(names(new_df), minlength=2)
+
+missing_plot_function(new_df)
+
+```
+
+Here, we can see where in our dataset do we have na values or the missing values, which columns have more missing data.This tile visualization provides us with a concrete idea of the placement of the missing values. Example: We can see that there are a lot of movies with Genre_3 which are missing some values. Here we only took the data from 100-200. Just to show the example, and the visualization better.
+
+```{r echo=FALSE}
+new_df = df[100:200,]
+names(new_df) <- abbreviate(names(new_df), minlength=3)
+
+new_df<- new_df %>%
+  rownames_to_column("id") %>%
+  gather(key,value,-id) %>%
+  mutate(missing=ifelse(is.na(value),"yes","no"))
+
+new_df$new_id <- as.numeric(new_df$id)
+
+ggplot(new_df,aes(x=key,y=reorder(new_id, -new_id),fill=missing)) +
+  geom_tile(color="white")+
+  ggtitle("Rotten Tomatoes and IMDB Data with Missing Values ")+
+  scale_fill_viridis_d() +
+  theme_bw()+
+  xlab("Variables")+
+  ylab("Movie Numbers")
+
+
+```
+
+## Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten
+Here, we created three extra columns to check whether we had any missing ratings or scores abd populated them with 1 and 0. 1 for True they are missing and 0 for false they are not. We can see that in our dataset, we had 150 missing IMDB ratings for our movies, and about 110 values for our audience score, and the total missing values for score_ratings were about 260. Here, MISSING.VALUE is score ratings.
+
+```{r echo=FALSE}
+
+column_name=df[,c(18,19,20)]
+sumdata=data.frame(value=apply(column_name,2,sum))
+sumdata$key=rownames(sumdata)
+ggplot(data=sumdata,aes(x=key,y=value,fill=key))+geom_bar(colour="black",stat="identity")
+
+```
+

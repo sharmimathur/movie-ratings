@@ -80,3 +80,12 @@ data_t
 
 ```
 
+=======
+* Scraped data from rotten tomatoes
+* Downloaded from imdb
+* Chosen because these are the biggest hubs for movie information
+* Refer to sample column names above
+* Started from 2300
+  * Talk about how we picked the top 200 movies
+  * Talk about why we picked the top 200 movies
+* Issues: duplicate names, same movie multiple countries
