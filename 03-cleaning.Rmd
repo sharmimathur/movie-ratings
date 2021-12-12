@@ -19,3 +19,10 @@ From there, we imported a new .dat file that was the aggregate list of 2,200 mov
 
 ## Aggregation
 After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points. 
+=======
+* Downloaded data from imdb
+  * tsv
+* Scraped rotten tomatoes
+  * Excel spreadsheet to csv
+* Brought together with python
+  * Merge on *whatever column names*
