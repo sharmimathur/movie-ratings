@@ -197,41 +197,6 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Correlation between audience and critic scores - aggregate 
 
 ```{r, echo=TRUE}
@@ -943,6 +908,70 @@ genre_correlation
 
 ```
 
+
+
+
+## Aggregating and filtering top earning studios 
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+
+
+studio_df <- data.frame(gross, movies$Studio, movies$Year)
+
+total_by_studio<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
+  arrange(desc(gross))
+
+aggregate_df<- aggregate(gross~movies.Studio+movies.Year, data=studio_df, sum) %>%
+  arrange(desc(gross)) 
+
+final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y>10000)
+
+
+ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
+  geom_line()
+
+```
+
+
+
+
+
+
+
+## Aggregating gross and total gross  
+
+```{r, echo=TRUE}
+
+movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+
+t_gross <- as.numeric(movies$Total.Gross)/100000
+gross <- as.numeric(movies$Gross)/100000
+
+gross_df_aggregate <- data.frame(gross, t_gross, movies$Year)
+
+total_by_year1<- aggregate(gross~movies.Year, data=gross_df_aggregate, sum) 
+
+total_by_year2<- aggregate(t_gross~movies.Year, data=gross_df_aggregate, sum) 
+
+
+year_merged <- merge(total_by_year1, total_by_year2, "movies.Year")
+
+g <- ggplot(year_merged, aes(movies.Year))
+
+g <- g + geom_line(aes(y = gross), color = "red")
+g <- g + geom_line(aes(y = t_gross), color = "blue")
+g
+
+#year_merged <- year_merged %>% pivot_longer(!movies.Year, names_to = "Type of Gross", values_to = "gross")
+
+
+
+
+```
 
 
 
