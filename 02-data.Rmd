@@ -1,12 +1,5 @@
 # Data sources
 
----
-title: "Data"
-author: "Charlie Sturr"
-date: "12/11/2021"
-output: html_document
----
-
 In order to aggregate a comprehensive list of movie titles, box office gross, and ratings, we turned to the following data sources and followed the following processes. 
 
 The first observation we made is that the IMDB data set with aggregate movies, genres, and ratings was quite large. For movies alone, there were well over millions of titles from around the world. Therefore, we needed to make some strategic decisions about which movies to include, and what logic to include. Because of the sheer volume of titles, we aggregated the following: 
@@ -14,8 +7,6 @@ The first observation we made is that the IMDB data set with aggregate movies, g
 * We constrained our movies to be within movies released from 2011 to 2021 
 * We constrained the movies included to be the top 200 total grossing movies from each year
   + Total gross includes both box office and streaming services 
-
-## Box Office Mojo
 
 Once we constrained our list, the first task was to get a working list of the movies we wanted to include. We first turned to box office mojo, https://www.boxofficemojo.com/, which is a product offered by IMDB. In box office mojo, IMDB aggregates the top 200 movies from each year by title, gross, total gross, and number of theaters the film was released in. Using this data source, we aggregated all movies from each year to create our first data frame and get our initial movie list we planned to scrape. 
 
@@ -56,13 +47,9 @@ After aggregating the three data sources, we had the following data inputs:
 
 
 ```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 data <- head(movies, n=1)
-
 data_t <- t(data)
-
 data_t[1,1] = "Rank - ranking of box office gross within the release year"
 data_t[2,1] = "Movie Title"
 data_t[3,1] = "Gross"
@@ -80,12 +67,16 @@ data_t[14,1] = "3rd genre element"
 data_t[15,1] = "Average IMDB rating"
 data_t[16,1] = "Number of IMDB votes"
 data_t[17,1] = "Year pulled from IMDB"
-
 data_t = data_t[-c(18,19,20,21,22,23)]
-
 data_t
-
-
-
 ```
 
+=======
+* Scraped data from rotten tomatoes
+* Downloaded from imdb
+* Chosen because these are the biggest hubs for movie information
+* Refer to sample column names above
+* Started from 2300
+  * Talk about how we picked the top 200 movies
+  * Talk about why we picked the top 200 movies
+* Issues: duplicate names, same movie multiple countries
