@@ -103,7 +103,7 @@ missing_plot_function(new_df)
 Here, we can see where in our dataset do we have na values or the missing values, which columns have more missing data.This tile visualization provides us with a concrete idea of the placement of the missing values. Example: We can see that there are a lot of movies with Genre_3 which are missing some values. Here we only took the data from 100-200. Just to show the example, and the visualization better.
 
 ```{r echo=FALSE}
-new_df = df[100:200,]
+new_df = df[100:150,]
 names(new_df) <- abbreviate(names(new_df), minlength=3)
 
 new_df<- new_df %>%
@@ -118,21 +118,21 @@ ggplot(new_df,aes(x=key,y=reorder(new_id, -new_id),fill=missing)) +
   ggtitle("Rotten Tomatoes and IMDB Data with Missing Values ")+
   scale_fill_viridis_d() +
   theme_bw()+
-  xlab("Variables")+
-  ylab("Movie Numbers")
+  xlab("Column Variables")+
+  ylab("Index of Row - Movies ")
 
 
 ```
 
 ## Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten
-Here, we created three extra columns to check whether we had any missing ratings or scores abd populated them with 1 and 0. 1 for True they are missing and 0 for false they are not. We can see that in our dataset, we had 150 missing IMDB ratings for our movies, and about 110 values for our audience score, and the total missing values for score_ratings were about 260. Here, MISSING.VALUE is score ratings.
+Here, we created three extra columns to check whether we had any missing ratings or scores abd populated them with 1 and 0. 1 for True they are missing and 0 for false they are not. We can see that in our dataset, we had 150 missing IMDB ratings for our movies, and about 110 values for our audience score, and the total missing values for score_ratings were about 260.
 
 ```{r echo=FALSE}
 
 column_name=df[,c(18,19,20)]
 sumdata=data.frame(value=apply(column_name,2,sum))
 sumdata$key=rownames(sumdata)
-ggplot(data=sumdata,aes(x=key,y=value,fill=key))+geom_bar(colour="black",stat="identity")
+ggplot(data=sumdata,aes(x=key,y=value,fill=key))+geom_bar(colour="black",stat="identity")+scale_fill_brewer(palette="Blues",name="Missing Values",labels=c("IMDB_Rating","Rotten_Rating","IMDB_Score_Rating"))+scale_x_discrete("Missing Values of Respective Sources",labels=c("Missing.IMDB"="IMDB_Rating","Missing.Rotten"="Rotten_Rating","MISSING.VALUE"="IMDB_Score_Rating"))+ylab("Number of Missing Values")
 
 ```
 
