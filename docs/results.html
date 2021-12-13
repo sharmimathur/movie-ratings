@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | Movie Rating Analysis</title>
-  <meta name="description" content="Chapter 5 Results | Movie Rating Analysis" />
+  <title>Chapter 5 Results | Movie Rating Analysis Test</title>
+  <meta name="description" content="Chapter 5 Results | Movie Rating Analysis Test" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | Movie Rating Analysis" />
+  <meta property="og:title" content="Chapter 5 Results | Movie Rating Analysis Test" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | Movie Rating Analysis" />
+  <meta name="twitter:title" content="Chapter 5 Results | Movie Rating Analysis Test" />
   
   
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Sharmi Mathur, Charlie Sturr, Ayush Baral" />
 
 
-<meta name="date" content="2021-11-17" />
+<meta name="date" content="2021-12-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="missing-values.html"/>
+<link rel="prev" href="missing-value.html"/>
 <link rel="next" href="interactive-component.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -54,6 +54,43 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -72,11 +109,53 @@
 <li><a href="./">Movie Ratings Analysis</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#our-questions-are-as-follows"><i class="fa fa-check"></i><b>1.0.1</b> Our questions are as follows:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#rotten-tomatoes"><i class="fa fa-check"></i><b>2.1</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#imdb"><i class="fa fa-check"></i><b>2.2</b> IMDB</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#final-data-table"><i class="fa fa-check"></i><b>2.3</b> Final Data Table</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#box-office-mojo"><i class="fa fa-check"></i><b>3.1</b> Box Office Mojo</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#rotten-tomatoes-1"><i class="fa fa-check"></i><b>3.2</b> Rotten Tomatoes</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#imdb-1"><i class="fa fa-check"></i><b>3.3</b> IMDB</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#aggregation"><i class="fa fa-check"></i><b>3.4</b> Aggregation</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-value.html"><a href="missing-value.html"><i class="fa fa-check"></i><b>4</b> Missing Value</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-value.html"><a href="missing-value.html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten"><i class="fa fa-check"></i><b>4.1</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#aggregating-gross-and-total-gross"><i class="fa fa-check"></i><b>5.1</b> Aggregating gross and total gross</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#covid-impact-goes-here"><i class="fa fa-check"></i><b>5.2</b> COVID IMPACT GOES HERE</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#studios-across-the-board-have-struggled-too"><i class="fa fa-check"></i><b>5.3</b> Studios across the board have struggled too</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ratings-over-time"><i class="fa fa-check"></i><b>5.4</b> Ratings over time</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#correlation-between-audience-and-critic-scores---aggregate"><i class="fa fa-check"></i><b>5.5</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#correlation-between-audience-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>5.6</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="5.7" data-path="results.html"><a href="results.html#correlation-between-critic-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>5.7</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="5.8" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-audience-score---aggregate"><i class="fa fa-check"></i><b>5.8</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="5.9" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-critic-score---aggregate"><i class="fa fa-check"></i><b>5.9</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="5.10" data-path="results.html"><a href="results.html#correlation-by-year---audience-vs.-critic"><i class="fa fa-check"></i><b>5.10</b> Correlation by year - audience vs. critic</a></li>
+<li class="chapter" data-level="5.11" data-path="results.html"><a href="results.html#correlation-by-year---imdb-vs.-audience"><i class="fa fa-check"></i><b>5.11</b> Correlation by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="5.12" data-path="results.html"><a href="results.html#correlation-by-year---imdb-vs.-critic"><i class="fa fa-check"></i><b>5.12</b> Correlation by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="5.13" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>5.13</b> Correlation between total gross and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="5.14" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-critic-score---aggregate-1"><i class="fa fa-check"></i><b>5.14</b> Correlation between total gross and critic score - aggregate</a></li>
+<li class="chapter" data-level="5.15" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>5.15</b> Correlation between total gross and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="5.16" data-path="results.html"><a href="results.html#box-and-whisker---imdb-rating-and-gross"><i class="fa fa-check"></i><b>5.16</b> Box and Whisker - IMDB rating and gross</a></li>
+<li class="chapter" data-level="5.17" data-path="results.html"><a href="results.html#box-and-whisker---audience-rating-and-gross"><i class="fa fa-check"></i><b>5.17</b> Box and Whisker - audience rating and gross</a></li>
+<li class="chapter" data-level="5.18" data-path="results.html"><a href="results.html#box-and-whisker---critic-rating-and-gross"><i class="fa fa-check"></i><b>5.18</b> Box and Whisker - critic rating and gross</a></li>
+<li class="chapter" data-level="5.19" data-path="results.html"><a href="results.html#aggregating-and-filtering-top-earning-studios"><i class="fa fa-check"></i><b>5.19</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="5.20" data-path="results.html"><a href="results.html#average-imdb-rating-by-month-and-year"><i class="fa fa-check"></i><b>5.20</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="5.21" data-path="results.html"><a href="results.html#average-audience-rating-by-month-and-year"><i class="fa fa-check"></i><b>5.21</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="5.22" data-path="results.html"><a href="results.html#average-critic-rating-by-month-and-year"><i class="fa fa-check"></i><b>5.22</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="5.23" data-path="results.html"><a href="results.html#average-critic-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>5.23</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="5.24" data-path="results.html"><a href="results.html#graveyard"><i class="fa fa-check"></i><b>5.24</b> GRAVEYARD</a></li>
+<li class="chapter" data-level="5.25" data-path="results.html"><a href="results.html#filtering-by-good-and-bad-movies"><i class="fa fa-check"></i><b>5.25</b> Filtering by &quot;Good and bad movies&quot;</a></li>
+<li class="chapter" data-level="5.26" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-audience-score---aggregate-1"><i class="fa fa-check"></i><b>5.26</b> Correlation between total gross and audience score - aggregate</a></li>
+<li class="chapter" data-level="5.27" data-path="results.html"><a href="results.html#aggregating-and-filtering-top-earning-studios-1"><i class="fa fa-check"></i><b>5.27</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="5.28" data-path="results.html"><a href="results.html#correlation-by-genre"><i class="fa fa-check"></i><b>5.28</b> CORRELATION by genre</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -90,7 +169,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Movie Rating Analysis</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Movie Rating Analysis Test</a>
           </h1>
         </div>
 
@@ -100,14 +179,174 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
+<div id="aggregating-gross-and-total-gross" class="section level2">
+<h2><span class="header-section-number">5.1</span> Aggregating gross and total gross</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="covid-impact-goes-here" class="section level2">
+<h2><span class="header-section-number">5.2</span> COVID IMPACT GOES HERE</h2>
+<p>If we zoom our cut in - we can see the month by month drop off.</p>
+<p><img src="05-results_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="studios-across-the-board-have-struggled-too" class="section level2">
+<h2><span class="header-section-number">5.3</span> Studios across the board have struggled too</h2>
+<p>Filtering only studios who have made over 1B and less than 1B</p>
+<p><img src="05-results_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-4-3.png" width="672" /></p>
+</div>
+<div id="ratings-over-time" class="section level2">
+<h2><span class="header-section-number">5.4</span> Ratings over time</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-audience-and-critic-scores---aggregate" class="section level2">
+<h2><span class="header-section-number">5.5</span> Correlation between audience and critic scores - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-audience-and-imdb-score---aggregate" class="section level2">
+<h2><span class="header-section-number">5.6</span> Correlation between audience and IMDB score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-critic-and-imdb-score---aggregate" class="section level2">
+<h2><span class="header-section-number">5.7</span> Correlation between critic and IMDB score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-total-gross-and-audience-score---aggregate" class="section level2">
+<h2><span class="header-section-number">5.8</span> Correlation between total gross and audience score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-total-gross-and-critic-score---aggregate" class="section level2">
+<h2><span class="header-section-number">5.9</span> Correlation between total gross and critic score - aggregate</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
 
+gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
+rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
+audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
+critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
+
+correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
+
+g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
+
+g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
+<p><img src="05-results_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+</div>
+<div id="correlation-by-year---audience-vs.-critic" class="section level2">
+<h2><span class="header-section-number">5.10</span> Correlation by year - audience vs. critic</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="correlation-by-year---imdb-vs.-audience" class="section level2">
+<h2><span class="header-section-number">5.11</span> Correlation by year - imdb vs. audience</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="correlation-by-year---imdb-vs.-critic" class="section level2">
+<h2><span class="header-section-number">5.12</span> Correlation by year - imdb vs. critic</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-total-gross-and-imdb-score---aggregate" class="section level2">
+<h2><span class="header-section-number">5.13</span> Correlation between total gross and IMDB score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-total-gross-and-critic-score---aggregate-1" class="section level2">
+<h2><span class="header-section-number">5.14</span> Correlation between total gross and critic score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+<div id="correlation-between-total-gross-and-imdb-score---aggregate-1" class="section level2">
+<h2><span class="header-section-number">5.15</span> Correlation between total gross and IMDB score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---imdb-rating-and-gross" class="section level2">
+<h2><span class="header-section-number">5.16</span> Box and Whisker - IMDB rating and gross</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---audience-rating-and-gross" class="section level2">
+<h2><span class="header-section-number">5.17</span> Box and Whisker - audience rating and gross</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="box-and-whisker---critic-rating-and-gross" class="section level2">
+<h2><span class="header-section-number">5.18</span> Box and Whisker - critic rating and gross</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="05-results_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+</div>
+<div id="aggregating-and-filtering-top-earning-studios" class="section level2">
+<h2><span class="header-section-number">5.19</span> Aggregating and filtering top earning studios</h2>
+</div>
+<div id="average-imdb-rating-by-month-and-year" class="section level2">
+<h2><span class="header-section-number">5.20</span> Average IMDB rating by month and year</h2>
+</div>
+<div id="average-audience-rating-by-month-and-year" class="section level2">
+<h2><span class="header-section-number">5.21</span> Average audience rating by month and year</h2>
+</div>
+<div id="average-critic-rating-by-month-and-year" class="section level2">
+<h2><span class="header-section-number">5.22</span> Average critic rating by month and year</h2>
+</div>
+<div id="average-critic-rating-by-month-and-year-1" class="section level2">
+<h2><span class="header-section-number">5.23</span> Average critic rating by month and year</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-25-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-25-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-25-3.png" width="672" /></p>
+</div>
+<div id="graveyard" class="section level2">
+<h2><span class="header-section-number">5.24</span> GRAVEYARD</h2>
+</div>
+<div id="filtering-by-good-and-bad-movies" class="section level2">
+<h2><span class="header-section-number">5.25</span> Filtering by &quot;Good and bad movies&quot;</h2>
+</div>
+<div id="correlation-between-total-gross-and-audience-score---aggregate-1" class="section level2">
+<h2><span class="header-section-number">5.26</span> Correlation between total gross and audience score - aggregate</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="aggregating-and-filtering-top-earning-studios-1" class="section level2">
+<h2><span class="header-section-number">5.27</span> Aggregating and filtering top earning studios</h2>
+<p><img src="05-results_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+<div id="correlation-by-genre" class="section level2">
+<h2><span class="header-section-number">5.28</span> CORRELATION by genre</h2>
+<pre><code>##   Rank                                        Title     Gross X..of.Theaters
+## 1    1 Harry Potter and the Deathly Hallows: Part 2 381011219           4375
+## 2    2               Transformers: Dark of the Moon 352390543           4088
+## 3    3    The Twilight Saga: Breaking Dawn - Part 1 274841954           4066
+## 4    4                         The Hangover Part II 254464305           3675
+## 5    5  Pirates of the Caribbean: On Stranger Tides 241071802           4164
+## 6    6                                    Fast Five 209837675           3793
+##   Total.Gross Release.Date                              Studio Year
+## 1   381011219         7/15                        Warner Bros. 2011
+## 2   352390543         6/29                          DreamWorks 2011
+## 3   281287133        11/18                Summit Entertainment 2011
+## 4   254464305         5/26                        Warner Bros. 2011
+## 5   241071802         5/20 Walt Disney Studios Motion Pictures 2011
+## 6   209837675         4/29                  Universal Pictures 2011
+##   Score_Rotten Score_Audience                     genre    genre1    genre2
+## 1           96             89 Adventure,Fantasy,Mystery Adventure   Fantasy
+## 2           35             55   Action,Adventure,Sci-Fi    Action Adventure
+## 3           25             60   Adventure,Drama,Fantasy Adventure     Drama
+## 4           34             52                    Comedy    Comedy          
+## 5           33             54  Action,Adventure,Fantasy    Action Adventure
+## 6           77             83    Action,Adventure,Crime    Action Adventure
+##    genre3 average_rating numvotes startYear MISSING.VALUE Missing.Rotten
+## 1 Mystery            8.1   808813      2011             0              0
+## 2  Sci-Fi            6.2   395497      2011             0              0
+## 3 Fantasy            4.9   232357      2011             0              0
+## 4                    6.5   479995      2011             0              0
+## 5 Fantasy            6.6   500148      2011             0              0
+## 6   Crime            7.3   368386      2011             0              0
+##   Missing.IMDB day month final_date
+## 1            0  15     7  7/15/2011
+## 2            0  29     6  6/29/2011
+## 3            0  18    11 11/18/2011
+## 4            0  26     5  5/26/2011
+## 5            0  20     5  5/20/2011
+## 6            0  29     4  4/29/2011</code></pre>
+<p><img src="05-results_files/figure-html/unnamed-chunk-28-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-3.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-4.png" width="672" /></p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="missing-values.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="missing-value.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="interactive-component.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

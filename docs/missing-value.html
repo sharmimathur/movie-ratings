@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | Movie Rating Analysis Test</title>
-  <meta name="description" content="Chapter 2 Data sources | Movie Rating Analysis Test" />
+  <title>Chapter 4 Missing Value | Movie Rating Analysis Test</title>
+  <meta name="description" content="Chapter 4 Missing Value | Movie Rating Analysis Test" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | Movie Rating Analysis Test" />
+  <meta property="og:title" content="Chapter 4 Missing Value | Movie Rating Analysis Test" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | Movie Rating Analysis Test" />
+  <meta name="twitter:title" content="Chapter 4 Missing Value | Movie Rating Analysis Test" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="data-transformation.html"/>
+<link rel="prev" href="data-transformation.html"/>
+<link rel="next" href="results.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -177,65 +177,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<p>In order to aggregate a comprehensive list of movie titles, box office gross, and ratings, we turned to the following data sources and followed the following processes.</p>
-<p>The first observation we made is that the IMDB data set with aggregate movies, genres, and ratings was quite large. For movies alone, there were well over millions of titles from around the world. Therefore, we needed to make some strategic decisions about which movies to include, and what logic to include. Because of the sheer volume of titles, we aggregated the following:</p>
-<ul>
-<li>We constrained our movies to be within movies released from 2011 to 2021</li>
-<li>We constrained the movies included to be the top 200 total grossing movies from each year</li>
-<li>Total gross includes both box office and streaming services</li>
-</ul>
-<p>Once we constrained our list, the first task was to get a working list of the movies we wanted to include. We first turned to box office mojo, <a href="https://www.boxofficemojo.com/" class="uri">https://www.boxofficemojo.com/</a>, which is a product offered by IMDB. In box office mojo, IMDB aggregates the top 200 movies from each year by title, gross, total gross, and number of theaters the film was released in. Using this data source, we aggregated all movies from each year to create our first data frame and get our initial movie list we planned to scrape.</p>
-<div id="rotten-tomatoes" class="section level2">
-<h2><span class="header-section-number">2.1</span> Rotten Tomatoes</h2>
-<p>Rotten Tomatoes is one of the most cited and well known movie ratings websites in the world. Rotten Tomatoes aggregates both an &quot;audience score&quot; and a &quot;critics score&quot;. This distinction is important, as one of our focuses of our analysis is looking at how reviews impact box office scores, and so by having both of these perspectives we can see if one or the other drives box office performance more.</p>
-<p>In order to aggregate our Rotten Tomatoes data, we used a simple Rotten Tomatoes scraper package in python. The documentation can be found here: <a href="https://github.com/pdrm83/rotten_tomatoes_scraper" class="uri">https://github.com/pdrm83/rotten_tomatoes_scraper</a></p>
-<p>To implement this scraper, we passed in our initial list of 2,200 movie titles that we had originally sorted by box office gross in our initial data collection. By iterating through each title in our list, we were able to successfully scrape both audience and critic ratings from Rotten Tomatoes, with only minor data loss (more on that in the missing values section).</p>
-</div>
-<div id="imdb" class="section level2">
-<h2><span class="header-section-number">2.2</span> IMDB</h2>
-<p>As previously mentioned, the IMDB data set is quite large. Because IMDB traces movies, shorts, and TV shows back to the early days of film (the early 1900s), the data set was quite unweildy and took quite a bit of masnaging to wrangle. We will cover exactly how we cleaned this data in our cleaning section.</p>
-<p>The two files we pulled from the IMDB data were the &quot;title.ratings.tsv.gz&quot; and &quot;title.basic.tsv.gz&quot;. The documentation can be found here: <a href="https://www.imdb.com/interfaces/" class="uri">https://www.imdb.com/interfaces/</a></p>
-<p>For the ratings file, there were 3 elements:</p>
-<ul>
-<li>tconst (the unique title identifier; a string)</li>
-<li>averageRating (from 0-10)</li>
-<li>numVotes (the number of votes included)</li>
-</ul>
-<p>For the titles file, there were 9 elements:</p>
-<ul>
-<li>tconst (the unique title identifier; a string)</li>
-<li>titleType (the type of film it is - could be TV Show, Movie, Short, etc.)</li>
-<li>primaryTitle (the title used in promotional materials. This was the title we used in our filtering)</li>
-<li>originalTitle (the title originally used. Typically the two titles are the same, unless one is in a different language)</li>
-<li>isAdult (boolean operator for adult movies. We did not include any adult movies in our analysis)</li>
-<li>startYear (release year of the title)</li>
-<li>endYear (only used for TV series; if the series ended)</li>
-<li>runTimeMinutes (run time of the title)</li>
-<li>genres (the genre of the film. Can be 1 - 3 values in a string)</li>
-</ul>
-</div>
-<div id="final-data-table" class="section level2">
-<h2><span class="header-section-number">2.3</span> Final Data Table</h2>
-<p>After aggregating the three data sources, we had the following data inputs:</p>
-<pre><code>##  [1] &quot;Rank - ranking of box office gross within the release year&quot;
-##  [2] &quot;Movie Title&quot;                                               
-##  [3] &quot;Gross&quot;                                                     
-##  [4] &quot;Number of Theaters&quot;                                        
-##  [5] &quot;Total Gross - includes streaming / DVD / etc.&quot;             
-##  [6] &quot;Release Date (D/M)&quot;                                        
-##  [7] &quot;Primary Studio&quot;                                            
-##  [8] &quot;Year Released&quot;                                             
-##  [9] &quot;Critic score scraped from RT&quot;                              
-## [10] &quot;Audience score scraped from RT&quot;                            
-## [11] &quot;Genre - concatenated - max 3 elements&quot;                     
-## [12] &quot;1st genre element&quot;                                         
-## [13] &quot;2nd genre element&quot;                                         
-## [14] &quot;3rd genre element&quot;                                         
-## [15] &quot;Average IMDB rating&quot;                                       
-## [16] &quot;Number of IMDB votes&quot;                                      
-## [17] &quot;Year pulled from IMDB&quot;</code></pre>
+<div id="missing-value" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Missing Value</h1>
+<p>Here, The three chart shows us in which row do we have missing values. Like from the first bar chart, we can see that we are missing more than 750 rows of data in the Genre_3 or G_3 column. Using this data gives us a bit of an idea on how to proceed with further analysis.</p>
+<p><img src="04-missing_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Here, we can see where in our dataset do we have na values or the missing values, which columns have more missing data.This tile visualization provides us with a concrete idea of the placement of the missing values. Example: We can see that there are a lot of movies with Genre_3 which are missing some values. Here we only took the data from 100-200. Just to show the example, and the visualization better.</p>
+<p><img src="04-missing_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten" class="section level2">
+<h2><span class="header-section-number">4.1</span> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</h2>
+<p>Here, we created three extra columns to check whether we had any missing ratings or scores abd populated them with 1 and 0. 1 for True they are missing and 0 for false they are not. We can see that in our dataset, we had 150 missing IMDB ratings for our movies, and about 110 values for our audience score, and the total missing values for score_ratings were about 260. Here, MISSING.VALUE is score ratings.</p>
+<p><img src="04-missing_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -244,8 +195,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -276,7 +227,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/sharmimathur/movie-ratings/edit/main/02-data.Rmd",
+"link": "https://github.com/sharmimathur/movie-ratings/edit/main/04-missing.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -284,7 +235,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/sharmimathur/movie-ratings/blob/main/02-data.Rmd",
+"link": "https://github.com/sharmimathur/movie-ratings/blob/main/04-missing.Rmd",
 "text": null
 },
 "download": null,
