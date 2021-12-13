@@ -1,5 +1,12 @@
 # Data transformation
 
+---
+title: "Data Transformation"
+author: "Charlie Sturr"
+date: "12/11/2021"
+output: html_document
+---
+
 The data transofrmation process was relatively straightforward. For each source, we will go through how and in what platforms we aggregated the values.
 
 ## Box Office Mojo
@@ -20,9 +27,11 @@ From there, we imported a new .dat file that was the aggregate list of 2,200 mov
 ## Aggregation
 After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points. 
 =======
+* Scraped data from Box Office Mojo
+  * csv file 
 * Downloaded data from imdb
   * tsv
 * Scraped rotten tomatoes
   * Excel spreadsheet to csv
 * Brought together with python
-  * Merge on *whatever column names*
+  * Merge on *movie title*
