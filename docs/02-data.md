@@ -66,6 +66,7 @@ After aggregating the three data sources, we had the following data inputs:
 ## [16] "Number of IMDB votes"                                      
 ## [17] "Year pulled from IMDB"
 ```
+<<<<<<< HEAD
 
 =======
 * Scraped data from rotten tomatoes
@@ -76,3 +77,5 @@ After aggregating the three data sources, we had the following data inputs:
   * Talk about how we picked the top 200 movies
   * Talk about why we picked the top 200 movies
 * Issues: duplicate names, same movie multiple countries
+=======
+>>>>>>> main

@@ -28,7 +28,11 @@ g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y =
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+>>>>>>> main
 
 ```r
 #test 
@@ -54,7 +58,11 @@ g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y =
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -77,7 +85,11 @@ g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = r
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -114,7 +126,11 @@ g_imdb <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x
 g_imdb
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -145,7 +161,11 @@ g_audience <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = a
 g_audience
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+>>>>>>> main
 
 
 ##Box and Whisker - critic rating and gross 
@@ -175,7 +195,11 @@ g_critic <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes
 g_critic
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -185,7 +209,11 @@ g_critic
 g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -226,7 +254,11 @@ year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = audience_score,
 year_chart
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -252,7 +284,11 @@ year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = aud
 year_chart
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -278,7 +314,11 @@ year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = cri
 year_chart
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -468,19 +508,31 @@ critic_time <- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col(
 imdb_time
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+>>>>>>> main
 
 ```r
 audience_time
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-15-2.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-16-2.png" width="672" />
+>>>>>>> main
 
 ```r
 critic_time
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-15-3.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-16-3.png" width="672" />
+>>>>>>> main
 
 
 ## Average ratings by just year
@@ -537,7 +589,11 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
   theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -596,7 +652,11 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
   theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+>>>>>>> main
 
 
 
@@ -655,7 +715,11 @@ ggplot(averages_transposed, aes(years, avg)) + geom_col()+
   theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+>>>>>>> main
 
 
 ## by genre
@@ -751,19 +815,31 @@ g_genre3 <- ggplot(data = genre_df %>% filter(gross > 1000), mapping = aes(x = g
 g_genre1
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+>>>>>>> main
 
 ```r
 g_genre2
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-19-2.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-20-2.png" width="672" />
+>>>>>>> main
 
 ```r
 g_genre3
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-19-3.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-20-3.png" width="672" />
+>>>>>>> main
 
 ```r
 genre_filtered <- genre_df %>% filter(gross>50, genre1 == c("Action", "Adventure", "Comedy", "Biography", "Horror", "Documentary", "Animation"), score_audience != "MISSING VALUE")
@@ -775,7 +851,11 @@ genre_correlation <- ggplot(genre_filtered, aes(x = score_audience, y = gross)) 
 genre_correlation
 ```
 
+<<<<<<< HEAD
 <img src="CS_Working_files/figure-html/unnamed-chunk-19-4.png" width="672" />
+=======
+<img src="CS_Working_files/figure-html/unnamed-chunk-20-4.png" width="672" />
+>>>>>>> main
 
 
 

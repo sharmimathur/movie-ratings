@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 ---
 title: "Missing Value"
 output: html_document
 ---
+=======
+#Missing Value
+>>>>>>> main
 
 
 

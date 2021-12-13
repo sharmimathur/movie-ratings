@@ -18,6 +18,7 @@ This was one of the most cumbersome cleaning processes, because the data set was
 From there, we imported a new .dat file that was the aggregate list of 2,200 movies we had originally scraped from Box Office Mojo, and iterated through the remaining data values to pull the required IMDB data. We output the new IMDB data into a CSV file as well. 
 
 ## Aggregation
+<<<<<<< HEAD
 After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points. 
 =======
 * Downloaded data from imdb
@@ -26,3 +27,6 @@ After our scraping from the 3 sources, we had 3 unique CSV files. We merged thes
   * Excel spreadsheet to csv
 * Brought together with python
   * Merge on *whatever column names*
+=======
+After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points.
+>>>>>>> main

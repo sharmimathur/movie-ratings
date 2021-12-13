@@ -12,6 +12,7 @@ output: html_document
 
 
 
+<<<<<<< HEAD
 ## Correlation between total gross and audience score - aggregate 
 
 
@@ -530,11 +531,69 @@ imdb_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+
 ```
 
 ## Average audience rating by month and year
+=======
+## Aggregating gross and total gross  
+
+<img src="05-results_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+
+ 
+## COVID IMPACT GOES HERE 
+
+If we zoom our cut in - we can see the month by month drop off. 
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+
+
+## Studios across the board have struggled too 
+
+Filtering only studios who have made over 1B and less than 1B
+
+<img src="05-results_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-4-3.png" width="672" />
+
+
+## Ratings over time 
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+
+
+
+
+## Correlation between audience and critic scores - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+
+## Correlation between audience and IMDB score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
+
+
+## Correlation between critic and IMDB score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+
+
+
+
+## Correlation between total gross and audience score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+
+
+
+## Correlation between total gross and critic score - aggregate 
+>>>>>>> main
 
 
 ```r
 movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
+<<<<<<< HEAD
 
 month <- as.numeric(movies$month)
 rating <- as.numeric(movies$average_rating)
@@ -853,6 +912,149 @@ movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 head(movies)
 ```
+=======
+gross <- as.numeric(movies$Total.Gross)/100000
+rating <- as.numeric(movies$average_rating)
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm)
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+```
+
+<img src="05-results_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+```r
+#test 
+```
+
+
+
+
+## Correlation by year - audience vs. critic 
+
+<img src="05-results_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+
+
+
+## Correlation by year - imdb vs. audience 
+
+<img src="05-results_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+
+
+
+## Correlation by year - imdb vs. critic 
+
+<img src="05-results_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+
+
+
+
+
+## Correlation between total gross and IMDB score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+
+
+
+## Correlation between total gross and critic score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+
+
+
+
+
+## Correlation between total gross and IMDB score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+
+
+
+
+
+
+
+##Box and Whisker - IMDB rating and gross 
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
+
+
+##Box and Whisker - audience rating and gross 
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+
+
+##Box and Whisker - critic rating and gross 
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+
+
+
+
+<img src="05-results_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+
+
+
+## Aggregating and filtering top earning studios 
+
+
+
+
+
+## Average IMDB rating by month and year
+
+
+
+## Average audience rating by month and year
+
+
+
+
+## Average critic rating by month and year
+
+
+
+
+## Average critic rating by month and year
+
+<img src="05-results_files/figure-html/unnamed-chunk-25-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-25-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-25-3.png" width="672" />
+
+
+##GRAVEYARD
+
+##Filtering by "Good and bad movies"
+
+
+## Correlation between total gross and audience score - aggregate 
+
+<img src="05-results_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+
+
+
+
+
+## Aggregating and filtering top earning studios 
+
+<img src="05-results_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+
+
+
+## CORRELATION by genre
+
+>>>>>>> main
 
 ```
 ##   Rank                                        Title     Gross X..of.Theaters
@@ -892,6 +1094,7 @@ head(movies)
 ## 6            0  29     4  4/29/2011
 ```
 
+<<<<<<< HEAD
 ```r
 gross <- as.numeric(movies$Total.Gross)/100000
 rating <- as.numeric(movies$average_rating)
@@ -1053,3 +1256,6 @@ g
 
 
 
+=======
+<img src="05-results_files/figure-html/unnamed-chunk-28-1.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-2.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-3.png" width="672" /><img src="05-results_files/figure-html/unnamed-chunk-28-4.png" width="672" />
+>>>>>>> main
