@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Results | Movie Rating Analysis Test</title>
-  <meta name="description" content="Chapter 5 Results | Movie Rating Analysis Test" />
+  <title>Chapter 4 Results | Results</title>
+  <meta name="description" content="Chapter 4 Results | Results" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Results | Movie Rating Analysis Test" />
+  <meta property="og:title" content="Chapter 4 Results | Results" />
   <meta property="og:type" content="book" />
   
   
@@ -16,23 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Results | Movie Rating Analysis Test" />
+  <meta name="twitter:title" content="Chapter 4 Results | Results" />
   
   
   
 
-<meta name="author" content="Sharmi Mathur, Charlie Sturr, Ayush Baral" />
+<meta name="author" content="Charlie Sturr" />
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"/>
-<link rel="next" href="filtering-by-good-and-bad-movies.html"/>
+<link rel="prev" href="data-transformation.html"/>
+<link rel="next" href="interactive-component.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,43 +55,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -109,141 +73,53 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Movie Ratings Analysis</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#our-questions-are-as-follows"><i class="fa fa-check"></i><b>1.0.1</b> Our questions are as follows:</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a><ul>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#rotten-tomatoes"><i class="fa fa-check"></i><b>2.1</b> Rotten Tomatoes</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#imdb"><i class="fa fa-check"></i><b>2.2</b> IMDB</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#final-data-table"><i class="fa fa-check"></i><b>2.3</b> Final Data Table</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#box-office-mojo"><i class="fa fa-check"></i><b>3.1</b> Box Office Mojo</a></li>
 <li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#rotten-tomatoes-1"><i class="fa fa-check"></i><b>3.2</b> Rotten Tomatoes</a></li>
 <li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#imdb-1"><i class="fa fa-check"></i><b>3.3</b> IMDB</a></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#aggregation"><i class="fa fa-check"></i><b>3.4</b> Aggregation</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten"><i class="fa fa-check"></i><b>3.5</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><i class="fa fa-check"></i><b>4</b> After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points.</a><ul>
-<li class="chapter" data-level="4.1" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten"><i class="fa fa-check"></i><b>4.1</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#overview-of-analysis"><i class="fa fa-check"></i><b>4.1</b> Overview of Analysis</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#box-office-revenue"><i class="fa fa-check"></i><b>4.2</b> Box Office Revenue</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#average-ratings"><i class="fa fa-check"></i><b>4.3</b> Average Ratings</a></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#comparing-ratings-metrics"><i class="fa fa-check"></i><b>4.4</b> Comparing Ratings Metrics</a></li>
+<li class="chapter" data-level="4.5" data-path="results.html"><a href="results.html#how-have-ratings-compared-over-time"><i class="fa fa-check"></i><b>4.5</b> How Have Ratings Compared Over Time?</a></li>
+<li class="chapter" data-level="4.6" data-path="results.html"><a href="results.html#are-box-office-returns-tied-to-audience-perception"><i class="fa fa-check"></i><b>4.6</b> Are Box Office Returns Tied to Audience Perception?</a></li>
+<li class="chapter" data-level="4.7" data-path="results.html"><a href="results.html#the-last-comparison---how-does-genre-play-a-roll"><i class="fa fa-check"></i><b>4.7</b> The Last Comparison - How Does Genre Play a Roll?</a></li>
+<li class="chapter" data-level="4.8" data-path="results.html"><a href="results.html#conclusions"><i class="fa fa-check"></i><b>4.8</b> Conclusions</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-audience-score---aggregate"><i class="fa fa-check"></i><b>5.1</b> Correlation between total gross and audience score - aggregate</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-critic-score---aggregate"><i class="fa fa-check"></i><b>5.2</b> Correlation between total gross and critic score - aggregate</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#correlation-between-total-gross-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>5.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html"><i class="fa fa-check"></i><b>6</b> Filtering by &quot;Good and bad movies&quot;</a><ul>
-<li class="chapter" data-level="6.1" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-audience-score---aggregate-1"><i class="fa fa-check"></i><b>6.1</b> Correlation between total gross and audience score - aggregate</a></li>
-<li class="chapter" data-level="6.2" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-critic-score---aggregate-1"><i class="fa fa-check"></i><b>6.2</b> Correlation between total gross and critic score - aggregate</a></li>
-<li class="chapter" data-level="6.3" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-total-gross-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>6.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="6.4" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-audience-and-critic-scores---aggregate"><i class="fa fa-check"></i><b>6.4</b> Correlation between audience and critic scores - aggregate</a></li>
-<li class="chapter" data-level="6.5" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-audience-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.5</b> Correlation between audience and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="6.6" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#correlation-between-critic-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.6</b> Correlation between critic and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="6.7" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---imdb-rating-and-gross"><i class="fa fa-check"></i><b>6.7</b> Box and Whisker - IMDB rating and gross</a></li>
-<li class="chapter" data-level="6.8" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---audience-rating-and-gross"><i class="fa fa-check"></i><b>6.8</b> Box and Whisker - audience rating and gross</a></li>
-<li class="chapter" data-level="6.9" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#box-and-whisker---critic-rating-and-gross"><i class="fa fa-check"></i><b>6.9</b> Box and Whisker - critic rating and gross</a></li>
-<li class="chapter" data-level="6.10" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-and-filtering-top-earning-studios"><i class="fa fa-check"></i><b>6.10</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="6.11" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---audience-vs.-critic"><i class="fa fa-check"></i><b>6.11</b> Cuts by year - audience vs. critic</a></li>
-<li class="chapter" data-level="6.12" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---imdb-vs.-audience"><i class="fa fa-check"></i><b>6.12</b> Cuts by year - imdb vs. audience</a></li>
-<li class="chapter" data-level="6.13" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#cuts-by-year---imdb-vs.-critic"><i class="fa fa-check"></i><b>6.13</b> Cuts by year - imdb vs. critic</a></li>
-<li class="chapter" data-level="6.14" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-imdb-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.14</b> Average IMDB rating by month and year</a></li>
-<li class="chapter" data-level="6.15" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-audience-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.15</b> Average audience rating by month and year</a></li>
-<li class="chapter" data-level="6.16" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-critic-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.16</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="6.17" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-critic-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>6.17</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="6.18" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year"><i class="fa fa-check"></i><b>6.18</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="6.19" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year-1"><i class="fa fa-check"></i><b>6.19</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="6.20" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#average-ratings-by-just-year-2"><i class="fa fa-check"></i><b>6.20</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="6.21" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#by-genre"><i class="fa fa-check"></i><b>6.21</b> by genre</a></li>
-<li class="chapter" data-level="6.22" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-and-filtering-top-earning-studios-1"><i class="fa fa-check"></i><b>6.22</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="6.23" data-path="filtering-by-good-and-bad-movies.html"><a href="filtering-by-good-and-bad-movies.html#aggregating-gross-and-total-gross"><i class="fa fa-check"></i><b>6.23</b> Aggregating gross and total gross</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>7</b> Interactive component</a></li>
-<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a><ul>
-<li class="chapter" data-level="8.1" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-critic-scores---aggregate-1"><i class="fa fa-check"></i><b>8.1</b> Correlation between audience and critic scores - aggregate</a></li>
-<li class="chapter" data-level="8.2" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>8.2</b> Correlation between audience and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="8.3" data-path="conclusion.html"><a href="conclusion.html#correlation-between-critic-and-imdb-score---aggregate-1"><i class="fa fa-check"></i><b>8.3</b> Correlation between critic and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="8.4" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---imdb-rating-and-gross-1"><i class="fa fa-check"></i><b>8.4</b> Box and Whisker - IMDB rating and gross</a></li>
-<li class="chapter" data-level="8.5" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---audience-rating-and-gross-1"><i class="fa fa-check"></i><b>8.5</b> Box and Whisker - audience rating and gross</a></li>
-<li class="chapter" data-level="8.6" data-path="conclusion.html"><a href="conclusion.html#box-and-whisker---critic-rating-and-gross-1"><i class="fa fa-check"></i><b>8.6</b> Box and Whisker - critic rating and gross</a></li>
-<li class="chapter" data-level="8.7" data-path="conclusion.html"><a href="conclusion.html#aggregating-and-filtering-top-earning-studios-2"><i class="fa fa-check"></i><b>8.7</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="8.8" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---audience-vs.-critic-1"><i class="fa fa-check"></i><b>8.8</b> Cuts by year - audience vs. critic</a></li>
-<li class="chapter" data-level="8.9" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-audience-1"><i class="fa fa-check"></i><b>8.9</b> Cuts by year - imdb vs. audience</a></li>
-<li class="chapter" data-level="8.10" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-critic-1"><i class="fa fa-check"></i><b>8.10</b> Cuts by year - imdb vs. critic</a></li>
-<li class="chapter" data-level="8.11" data-path="conclusion.html"><a href="conclusion.html#average-imdb-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>8.11</b> Average IMDB rating by month and year</a></li>
-<li class="chapter" data-level="8.12" data-path="conclusion.html"><a href="conclusion.html#average-audience-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>8.12</b> Average audience rating by month and year</a></li>
-<li class="chapter" data-level="8.13" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>8.13</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="8.14" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>8.14</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="8.15" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-3"><i class="fa fa-check"></i><b>8.15</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="8.16" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-4"><i class="fa fa-check"></i><b>8.16</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="8.17" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-5"><i class="fa fa-check"></i><b>8.17</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="8.18" data-path="conclusion.html"><a href="conclusion.html#by-genre-1"><i class="fa fa-check"></i><b>8.18</b> by genre</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>9</b> Introduction</a><ul>
-<li class="chapter" data-level="9.0.1" data-path="introduction-1.html"><a href="introduction-1.html#our-questions-are-as-follows-1"><i class="fa fa-check"></i><b>9.0.1</b> Our questions are as follows:</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="data-sources-1.html"><a href="data-sources-1.html"><i class="fa fa-check"></i><b>10</b> Data sources</a><ul>
-<li class="chapter" data-level="10.1" data-path="data-sources-1.html"><a href="data-sources-1.html#rotten-tomatoes-2"><i class="fa fa-check"></i><b>10.1</b> Rotten Tomatoes</a></li>
-<li class="chapter" data-level="10.2" data-path="data-sources-1.html"><a href="data-sources-1.html#imdb-2"><i class="fa fa-check"></i><b>10.2</b> IMDB</a></li>
-<li class="chapter" data-level="10.3" data-path="data-sources-1.html"><a href="data-sources-1.html#final-data-table-1"><i class="fa fa-check"></i><b>10.3</b> Final Data Table</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="data-transformation-1.html"><a href="data-transformation-1.html"><i class="fa fa-check"></i><b>11</b> Data transformation</a><ul>
-<li class="chapter" data-level="11.1" data-path="data-transformation-1.html"><a href="data-transformation-1.html#box-office-mojo-1"><i class="fa fa-check"></i><b>11.1</b> Box Office Mojo</a></li>
-<li class="chapter" data-level="11.2" data-path="data-transformation-1.html"><a href="data-transformation-1.html#rotten-tomatoes-3"><i class="fa fa-check"></i><b>11.2</b> Rotten Tomatoes</a></li>
-<li class="chapter" data-level="11.3" data-path="data-transformation-1.html"><a href="data-transformation-1.html#imdb-3"><i class="fa fa-check"></i><b>11.3</b> IMDB</a></li>
-<li class="chapter" data-level="11.4" data-path="data-transformation-1.html"><a href="data-transformation-1.html#aggregation-1"><i class="fa fa-check"></i><b>11.4</b> Aggregation</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><i class="fa fa-check"></i><b>12</b> After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points.</a><ul>
-<li class="chapter" data-level="12.1" data-path="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html"><a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points.-1.html#looking-for-missing-data-in-the-ratings-imdb-score_audience-and-score_rotten-1"><i class="fa fa-check"></i><b>12.1</b> Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="results-1.html"><a href="results-1.html"><i class="fa fa-check"></i><b>13</b> Results</a><ul>
-<li class="chapter" data-level="13.1" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-audience-score---aggregate-2"><i class="fa fa-check"></i><b>13.1</b> Correlation between total gross and audience score - aggregate</a></li>
-<li class="chapter" data-level="13.2" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-critic-score---aggregate-2"><i class="fa fa-check"></i><b>13.2</b> Correlation between total gross and critic score - aggregate</a></li>
-<li class="chapter" data-level="13.3" data-path="results-1.html"><a href="results-1.html#correlation-between-total-gross-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>13.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html"><i class="fa fa-check"></i><b>14</b> Filtering by &quot;Good and bad movies&quot;</a><ul>
-<li class="chapter" data-level="14.1" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-audience-score---aggregate-3"><i class="fa fa-check"></i><b>14.1</b> Correlation between total gross and audience score - aggregate</a></li>
-<li class="chapter" data-level="14.2" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-critic-score---aggregate-3"><i class="fa fa-check"></i><b>14.2</b> Correlation between total gross and critic score - aggregate</a></li>
-<li class="chapter" data-level="14.3" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-total-gross-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>14.3</b> Correlation between total gross and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="14.4" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-audience-and-critic-scores---aggregate-2"><i class="fa fa-check"></i><b>14.4</b> Correlation between audience and critic scores - aggregate</a></li>
-<li class="chapter" data-level="14.5" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-audience-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>14.5</b> Correlation between audience and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="14.6" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#correlation-between-critic-and-imdb-score---aggregate-2"><i class="fa fa-check"></i><b>14.6</b> Correlation between critic and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="14.7" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---imdb-rating-and-gross-2"><i class="fa fa-check"></i><b>14.7</b> Box and Whisker - IMDB rating and gross</a></li>
-<li class="chapter" data-level="14.8" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---audience-rating-and-gross-2"><i class="fa fa-check"></i><b>14.8</b> Box and Whisker - audience rating and gross</a></li>
-<li class="chapter" data-level="14.9" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#box-and-whisker---critic-rating-and-gross-2"><i class="fa fa-check"></i><b>14.9</b> Box and Whisker - critic rating and gross</a></li>
-<li class="chapter" data-level="14.10" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-and-filtering-top-earning-studios-3"><i class="fa fa-check"></i><b>14.10</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="14.11" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---audience-vs.-critic-2"><i class="fa fa-check"></i><b>14.11</b> Cuts by year - audience vs. critic</a></li>
-<li class="chapter" data-level="14.12" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---imdb-vs.-audience-2"><i class="fa fa-check"></i><b>14.12</b> Cuts by year - imdb vs. audience</a></li>
-<li class="chapter" data-level="14.13" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#cuts-by-year---imdb-vs.-critic-2"><i class="fa fa-check"></i><b>14.13</b> Cuts by year - imdb vs. critic</a></li>
-<li class="chapter" data-level="14.14" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-imdb-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>14.14</b> Average IMDB rating by month and year</a></li>
-<li class="chapter" data-level="14.15" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-audience-rating-by-month-and-year-2"><i class="fa fa-check"></i><b>14.15</b> Average audience rating by month and year</a></li>
-<li class="chapter" data-level="14.16" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-critic-rating-by-month-and-year-4"><i class="fa fa-check"></i><b>14.16</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="14.17" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-critic-rating-by-month-and-year-5"><i class="fa fa-check"></i><b>14.17</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="14.18" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-6"><i class="fa fa-check"></i><b>14.18</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="14.19" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-7"><i class="fa fa-check"></i><b>14.19</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="14.20" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#average-ratings-by-just-year-8"><i class="fa fa-check"></i><b>14.20</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="14.21" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#by-genre-2"><i class="fa fa-check"></i><b>14.21</b> by genre</a></li>
-<li class="chapter" data-level="14.22" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-and-filtering-top-earning-studios-4"><i class="fa fa-check"></i><b>14.22</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="14.23" data-path="filtering-by-good-and-bad-movies-1.html"><a href="filtering-by-good-and-bad-movies-1.html#aggregating-gross-and-total-gross-1"><i class="fa fa-check"></i><b>14.23</b> Aggregating gross and total gross</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="interactive-component-1.html"><a href="interactive-component-1.html"><i class="fa fa-check"></i><b>15</b> Interactive component</a></li>
-<li class="chapter" data-level="16" data-path="conclusion-1.html"><a href="conclusion-1.html"><i class="fa fa-check"></i><b>16</b> Conclusion</a><ul>
-<li class="chapter" data-level="16.1" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-audience-and-critic-scores---aggregate-3"><i class="fa fa-check"></i><b>16.1</b> Correlation between audience and critic scores - aggregate</a></li>
-<li class="chapter" data-level="16.2" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-audience-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>16.2</b> Correlation between audience and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="16.3" data-path="conclusion-1.html"><a href="conclusion-1.html#correlation-between-critic-and-imdb-score---aggregate-3"><i class="fa fa-check"></i><b>16.3</b> Correlation between critic and IMDB score - aggregate</a></li>
-<li class="chapter" data-level="16.4" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---imdb-rating-and-gross-3"><i class="fa fa-check"></i><b>16.4</b> Box and Whisker - IMDB rating and gross</a></li>
-<li class="chapter" data-level="16.5" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---audience-rating-and-gross-3"><i class="fa fa-check"></i><b>16.5</b> Box and Whisker - audience rating and gross</a></li>
-<li class="chapter" data-level="16.6" data-path="conclusion-1.html"><a href="conclusion-1.html#box-and-whisker---critic-rating-and-gross-3"><i class="fa fa-check"></i><b>16.6</b> Box and Whisker - critic rating and gross</a></li>
-<li class="chapter" data-level="16.7" data-path="conclusion-1.html"><a href="conclusion-1.html#aggregating-and-filtering-top-earning-studios-5"><i class="fa fa-check"></i><b>16.7</b> Aggregating and filtering top earning studios</a></li>
-<li class="chapter" data-level="16.8" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---audience-vs.-critic-3"><i class="fa fa-check"></i><b>16.8</b> Cuts by year - audience vs. critic</a></li>
-<li class="chapter" data-level="16.9" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---imdb-vs.-audience-3"><i class="fa fa-check"></i><b>16.9</b> Cuts by year - imdb vs. audience</a></li>
-<li class="chapter" data-level="16.10" data-path="conclusion-1.html"><a href="conclusion-1.html#cuts-by-year---imdb-vs.-critic-3"><i class="fa fa-check"></i><b>16.10</b> Cuts by year - imdb vs. critic</a></li>
-<li class="chapter" data-level="16.11" data-path="conclusion-1.html"><a href="conclusion-1.html#average-imdb-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>16.11</b> Average IMDB rating by month and year</a></li>
-<li class="chapter" data-level="16.12" data-path="conclusion-1.html"><a href="conclusion-1.html#average-audience-rating-by-month-and-year-3"><i class="fa fa-check"></i><b>16.12</b> Average audience rating by month and year</a></li>
-<li class="chapter" data-level="16.13" data-path="conclusion-1.html"><a href="conclusion-1.html#average-critic-rating-by-month-and-year-6"><i class="fa fa-check"></i><b>16.13</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="16.14" data-path="conclusion-1.html"><a href="conclusion-1.html#average-critic-rating-by-month-and-year-7"><i class="fa fa-check"></i><b>16.14</b> Average critic rating by month and year</a></li>
-<li class="chapter" data-level="16.15" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-9"><i class="fa fa-check"></i><b>16.15</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="16.16" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-10"><i class="fa fa-check"></i><b>16.16</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="16.17" data-path="conclusion-1.html"><a href="conclusion-1.html#average-ratings-by-just-year-11"><i class="fa fa-check"></i><b>16.17</b> Average ratings by just year</a></li>
-<li class="chapter" data-level="16.18" data-path="conclusion-1.html"><a href="conclusion-1.html#by-genre-3"><i class="fa fa-check"></i><b>16.18</b> by genre</a></li>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-critic-scores---aggregate"><i class="fa fa-check"></i><b>6.1</b> Correlation between audience and critic scores - aggregate</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#correlation-between-audience-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.2</b> Correlation between audience and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="6.3" data-path="conclusion.html"><a href="conclusion.html#correlation-between-critic-and-imdb-score---aggregate"><i class="fa fa-check"></i><b>6.3</b> Correlation between critic and IMDB score - aggregate</a></li>
+<li class="chapter" data-level="6.4" data-path="conclusion.html"><a href="conclusion.html#aggregating-and-filtering-top-earning-studios"><i class="fa fa-check"></i><b>6.4</b> Aggregating and filtering top earning studios</a></li>
+<li class="chapter" data-level="6.5" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---audience-vs.-critic"><i class="fa fa-check"></i><b>6.5</b> Cuts by year - audience vs. critic</a></li>
+<li class="chapter" data-level="6.6" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-audience"><i class="fa fa-check"></i><b>6.6</b> Cuts by year - imdb vs. audience</a></li>
+<li class="chapter" data-level="6.7" data-path="conclusion.html"><a href="conclusion.html#cuts-by-year---imdb-vs.-critic"><i class="fa fa-check"></i><b>6.7</b> Cuts by year - imdb vs. critic</a></li>
+<li class="chapter" data-level="6.8" data-path="conclusion.html"><a href="conclusion.html#average-imdb-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.8</b> Average IMDB rating by month and year</a></li>
+<li class="chapter" data-level="6.9" data-path="conclusion.html"><a href="conclusion.html#average-audience-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.9</b> Average audience rating by month and year</a></li>
+<li class="chapter" data-level="6.10" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year"><i class="fa fa-check"></i><b>6.10</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="6.11" data-path="conclusion.html"><a href="conclusion.html#average-critic-rating-by-month-and-year-1"><i class="fa fa-check"></i><b>6.11</b> Average critic rating by month and year</a></li>
+<li class="chapter" data-level="6.12" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year"><i class="fa fa-check"></i><b>6.12</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.13" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-1"><i class="fa fa-check"></i><b>6.13</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.14" data-path="conclusion.html"><a href="conclusion.html#average-ratings-by-just-year-2"><i class="fa fa-check"></i><b>6.14</b> Average ratings by just year</a></li>
+<li class="chapter" data-level="6.15" data-path="conclusion.html"><a href="conclusion.html#by-genre"><i class="fa fa-check"></i><b>6.15</b> by genre</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -256,7 +132,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Movie Rating Analysis Test</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Results</a>
           </h1>
         </div>
 
@@ -264,67 +140,157 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="results" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Results</h1>
-<div id="correlation-between-total-gross-and-audience-score---aggregate" class="section level2">
-<h2><span class="header-section-number">5.1</span> Correlation between total gross and audience score - aggregate</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
-
-gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
-rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
-audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
-critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
-
-correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
-
-g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> audience_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-
-g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
-<p><img src="05-results_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+<div id="results" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Results</h1>
+<div id="overview-of-analysis" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Overview of Analysis</h2>
+<p>For our project, we decided to focus on movie box office success, and how that might be impacted by critic’s reviews. Here, we define critical reviews from 3 different metrics: IMDB ratings, Rotten Tomatoes Audience Ratings, and Rotten Tomaotes Critic ratings. For box office success, we initially compare “gross”, which is defined as physical earnings at a theater, and “total gross”, which is define as all ticket sales + merchandise, DVD sales, rentals, etc. In order to conduct our analysis, we decided to start top down - first looking at box office trends. Then, we decided to look at ratings trends. And finally, we decided to look at how the two relate.</p>
+<p>The first piece of our analysis is looking at box office gross, and total gross, over time.</p>
 </div>
-<div id="correlation-between-total-gross-and-critic-score---aggregate" class="section level2">
-<h2><span class="header-section-number">5.2</span> Correlation between total gross and critic score - aggregate</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
-
-gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
-rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
-audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
-critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
-
-correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
-
-g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> critic_score, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-
-g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
-<p><img src="05-results_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
+<div id="box-office-revenue" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Box Office Revenue</h2>
+<p>Since 2011 (and pre-covid), studios across the industry have seen steady increases in both their gross, and total gross for the top 200 titles in each year. This tells us that before COVID, movies were generally seeing increasing box office revenues.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>If we zoom into the period from 2019 - 2021, we can see the month by month drop-off that studios saw due to COVID. Particularly, when cinemas closed March 2020, gross drops to $0. There was a minor rebound in Q4 of 2020 (October - December), but quickly fell off again when cases started rising in the second and third waves.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Next, we decided to take a look at the studio level. For this analysis, we turned only to “total gross”, as we felt it better described the success of the movie. Because total gross includes streaming and sales revenue outside of the actual theater, especially with COVID-19 forcing viewers to watch movies from home, we felt that this was a better metric to observe moving forward. Therefore, any chart that references “gross” implies total gross.</p>
+<p>When we take a look at studio revenue, there are certain ones that stand out. Because the list includes independent studios that have only 1-2 releases every few years, we need to filter by total gross over the period 2011-2021. The first group are all studios that grossed over $2B in this period. Clearly, Disney is the clear winner. From 2016 - 2019, largely driven by the success of the Marvel franchise, they saw significantly higher grosses than competitors.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Smaller studios saw pretty flat gross curves during this period:</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The smallest studios have more movement than the larger ones. What is particularly interesting are the new studios who only started releasing movies starting in 2018/2019. Because we calculated the aggrgate over the period 2011-2021, it will be interesting to see if their aggregate gross over the next 5 years bumps them into other gross bands.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="correlation-between-total-gross-and-imdb-score---aggregate" class="section level2">
-<h2><span class="header-section-number">5.3</span> Correlation between total gross and IMDB score - aggregate</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">movies &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;MOVIES_Final_12.11.2021_vAC.csv&quot;</span>)
+<div id="average-ratings" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Average Ratings</h2>
+<p>The next set of data we considered was how movies are rated. We aggregated from 2 sources, and have 3 metrics: Rotten Tomatoes Critic Scores, Rotten Tomatoes Audience Scores, and IMDB Ratings. As we can see in the charts below, the averages are constrained between ~50 and ~75. However, when we zoom in, we can start to see some more nuances form. Until 2018, the 3 sets of ratings generally followed a similar pattern. However, once we reach 2019, the audience scores from Rotten Tomatoes are much more positive, and average above 70.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<p>Now that we know how the average has trended over time, also want to see from each source, what the distribution of scores look like. In order to accomplish that, we created histograms.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>What this shows us it that IMDB scores have a much tighter distribution around scores in the 60-65 range. Compared to rotten tomatoe scores that see a fatter right tail, and are more equally distributed compared to the IMDB ratings.</p>
+<p>We can then check to see how normal each distribution is:</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>And here we have some more insight to our ratings data! Clearly the IMDB data is the closest to being normally distributed, whereas the rotten tomatoes scores have much fatter right tails.</p>
+<p>The next step in our calculations is looking at the correlations between ratings. In order to accomplish this, we created 3 sets of scatter plots. We also wanted to see what the difference between high grossing movies was, and lower grossing movies were. Therefore, we faceted by: all movies, movies that grossed over 100M, movies that grossed over 200M, and movies that gross over 500M.</p>
+</div>
+<div id="comparing-ratings-metrics" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Comparing Ratings Metrics</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Clearly, in aggregate, there is a high degree of correlation between Audience Scores (Rotten Tomatoes) and Critic Scores (Rotten Tomatoes). It’s interesting, though, when we compare the Rotten Tomatoes scores with IMDB, we can see that for movies with higher grosses, there is a lower level of correlation.</p>
+<p>The next cut we wanted to include is looking at how these scores are correlated over time. As we saw in the line chart, there was some deviation after 2018, so it will be important to see what that looks like from a scatter plot perspective.</p>
+</div>
+<div id="how-have-ratings-compared-over-time" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> How Have Ratings Compared Over Time?</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Clearly, before 2018, the scores are highly correlated. However, after 2018, the scores begin to deviate.</p>
+<p>The next perspective we wanted to add was to see how scores impacted movie gross. In order to accomplish this, the first perspective we wanted to take was seeing a box and whisker plot to see based on score bands (in increments of 10), where gross was distributed. For the box and whisker plots, we decided to use only movies that grossed over $50M, because when we included smaller grossing films there was a significant amount of noise in the data.</p>
+</div>
+<div id="are-box-office-returns-tied-to-audience-perception" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Are Box Office Returns Tied to Audience Perception?</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>As we can see, <em>in general</em>, the higher the movies are rated, the more they gross. However, if we look closely at some of the middle ratings bands, e.g. 40-70, we do see a number of outliers popping up.</p>
+<p>Now, we can take a look at the correlations.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-21-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-22-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-23-2.png" width="672" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">IMDB</th>
+<th align="right">Audience</th>
+<th align="right">Critic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2011</td>
+<td align="right">0.1199753</td>
+<td align="right">0.1945909</td>
+<td align="right">0.0630020</td>
+</tr>
+<tr class="even">
+<td align="left">2012</td>
+<td align="right">0.1992773</td>
+<td align="right">0.1351904</td>
+<td align="right">0.0538755</td>
+</tr>
+<tr class="odd">
+<td align="left">2013</td>
+<td align="right">0.2987806</td>
+<td align="right">0.4100765</td>
+<td align="right">0.2379156</td>
+</tr>
+<tr class="even">
+<td align="left">2014</td>
+<td align="right">0.2165173</td>
+<td align="right">0.3064287</td>
+<td align="right">0.2338210</td>
+</tr>
+<tr class="odd">
+<td align="left">2015</td>
+<td align="right">0.1704947</td>
+<td align="right">0.2291249</td>
+<td align="right">0.1626275</td>
+</tr>
+<tr class="even">
+<td align="left">2016</td>
+<td align="right">0.2692467</td>
+<td align="right">0.2762684</td>
+<td align="right">0.1647143</td>
+</tr>
+<tr class="odd">
+<td align="left">2017</td>
+<td align="right">0.2665871</td>
+<td align="right">0.3187132</td>
+<td align="right">0.2211926</td>
+</tr>
+<tr class="even">
+<td align="left">2018</td>
+<td align="right">0.2192689</td>
+<td align="right">0.1959654</td>
+<td align="right">0.1609221</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="right">0.1685769</td>
+<td align="right">0.1536440</td>
+<td align="right">0.1751435</td>
+</tr>
+<tr class="even">
+<td align="left">2020</td>
+<td align="right">-0.0349904</td>
+<td align="right">0.2352123</td>
+<td align="right">0.0313608</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="right">0.1291776</td>
+<td align="right">0.2077810</td>
+<td align="right">-0.0605791</td>
+</tr>
+</tbody>
+</table>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>So what this tells us is that there are low levels of correlation between ratings and how a movie does. So then, what is the next metric we should look at?</p>
+<p>The last cut that we wanted to include to round out our analysis is looking at the impact of genre. Because there are a number of genres, the most efficient way to categorize our data is by using a principle component analysis and including a biplot charting how gross and ratings are impacted by genre.</p>
+</div>
+<div id="the-last-comparison---how-does-genre-play-a-roll" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> The Last Comparison - How Does Genre Play a Roll?</h2>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>And here we see some interesting details!</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="conclusions" class="section level2" number="4.8">
+<h2><span class="header-section-number">4.8</span> Conclusions</h2>
 
-gross &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Total.Gross)<span class="op">/</span><span class="dv">100000</span>
-rating &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>average_rating)
-audience_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Audience)
-critic_score &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(movies<span class="op">$</span>Score_Rotten)
-
-correlation_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(gross, rating, audience_score, critic_score)
-
-g1&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g2&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g3&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">2000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-g4&lt;-<span class="st"> </span><span class="kw">ggplot</span>(correlation_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(gross <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>), <span class="kw">aes</span>(<span class="dt">x =</span> rating, <span class="dt">y =</span> gross)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm)
-
-g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span><span class="st"> </span>g3 <span class="op">+</span><span class="st"> </span>g4 <span class="op">+</span><span class="kw">plot_layout</span>(<span class="dt">widths =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</code></pre></div>
-<p><img src="05-results_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#test </span></code></pre></div>
 </div>
 </div>
             </section>
@@ -332,8 +298,8 @@ g1 <span class="op">+</span><span class="st"> </span>g2 <span class="op">+</span
           </div>
         </div>
       </div>
-<a href="after-our-scraping-from-the-3-sources-we-had-3-unique-csv-files.-we-merged-these-files-by-title-to-create-our-aggregate-list-of-movies-and-the-corresponding-data-points..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="filtering-by-good-and-bad-movies.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interactive-component.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

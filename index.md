@@ -1,7 +1,7 @@
 --- 
 title: "Movie Rating Analysis Test"
 author: "Sharmi Mathur, Charlie Sturr, Ayush Baral"
-date: "2021-12-12"
+date: "2021-12-13"
 site: bookdown::bookdown_site
 ---
 
