@@ -14,6 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       echo = TRUE)
+
+bookdown::render_book(new_session = TRUE)
+
 library(ggplot2)
 library(dplyr)
 library(ggnewscale)
@@ -21,76 +24,98 @@ library(patchwork)
 library(ExcelFunctionsR)
 library(tidyverse)
 library(rmarkdown)
+library(lubridate)
+library(GGally)
+library(knitr)
+library(devtools)
+library(ggbiplot)
 
 ```
 
 
+## Overview of Analysis
+For our project, we decided to focus on movie box office success, and how that might be impacted by critic's reviews. Here, we define critical reviews from 3 different metrics: IMDB ratings, Rotten Tomatoes Audience Ratings, and Rotten Tomaotes Critic ratings. For box office success, we initially compare "gross", which is defined as physical earnings at a theater, and "total gross", which is define as all ticket sales + merchandise, DVD sales, rentals, etc. In order to conduct our analysis, we decided to start top down - first looking at box office trends. Then, we decided to look at ratings trends. And finally, we decided to look at how the two relate. 
 
 
-## Aggregating gross and total gross  
+The first piece of our analysis is looking at box office gross, and total gross, over time. 
+
+
+## Box Office Revenue 
+
+Since 2011 (and pre-covid), studios across the industry have seen steady increases in both their gross, and total gross for the top 200 titles in each year. This tells us that before COVID, movies were generally seeing increasing box office revenues. 
 
 ```{r, echo=FALSE}
 
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-t_gross <- as.numeric(movies$Total.Gross)/100000
-gross <- as.numeric(movies$Gross)/100000
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+t_gross <- as.numeric(movies$Total.Gross)/1000000000
+gross <- as.numeric(movies$Gross)/1000000000
 gross_df_aggregate <- data.frame(gross, t_gross, movies$Year)
 total_by_year1<- aggregate(gross~movies.Year, data=gross_df_aggregate, sum) 
 total_by_year2<- aggregate(t_gross~movies.Year, data=gross_df_aggregate, sum) 
 year_merged <- merge(total_by_year1, total_by_year2, "movies.Year")
-g <- ggplot(year_merged, aes(x = movies.Year))
-g <- g + geom_line(aes(y = gross), color = "red")
-g <- g + geom_line(aes(y = t_gross), color = "blue")
+year_merged <- year_merged %>% pivot_longer(!movies.Year, names_to = "type", values_to = "gross")
+
+
+g <- ggplot(year_merged, aes(x = movies.Year, y = gross, group = type, color = type)) + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,16), labels=scales::dollar_format(suffix = "B"), breaks = c(0,5,10,15)) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) + scale_color_manual(name = "Gross Type", labels = c("Gross", "Total Gross"), values = c("Red", "Blue"))+ xlab("Year") + ylab("Aggregate Studio Gross") +theme(legend.position = "bottom")+ggtitle("Cinematic Total Gross and Gross Over Time")
+
+my_label="Cinemas Close March 2020"
+wrapper <- function(x, ...) paste(strwrap(x, ...), collapse = "\n")
+
+g <- g + annotate("rect", xmin = 2019, xmax = 2021, ymin = 0, ymax = 16, alpha = 0.1, fill = "blue") + annotate(geom="text", x=2020, y=14, label = wrapper(my_label, width = 10))
+
 g
+
 
 ```
 
- 
-## COVID IMPACT GOES HERE 
 
-If we zoom our cut in - we can see the month by month drop off. 
+
+If we zoom into the period from 2019 - 2021, we can see the month by month drop-off that studios saw due to COVID. Particularly, when cinemas closed March 2020, gross drops to $0. There was a minor rebound in Q4 of 2020 (October - December), but quickly fell off again when cases started rising in the second and third waves. 
 
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-t_gross <- as.numeric(movies$Total.Gross)/100000
-gross <- as.numeric(movies$Gross)/100000
+t_gross <- as.numeric(movies$Total.Gross)/1000000
+gross <- as.numeric(movies$Gross)/1000000
 
 gross_df_aggregate <- data.frame(gross, t_gross, movies$Year, movies$month)
 
 total_by_year1<- aggregate(gross~movies.Year+movies.month, data=gross_df_aggregate, sum) 
-total_by_year1 <- total_by_year1 %>% filter(total_by_year1$movies.Year >2017)
+total_by_year1 <- total_by_year1 %>% filter(total_by_year1$movies.Year >2018)
 total_by_year1$date <- with(total_by_year1, sprintf("%s-%02s", movies.Year, movies.month))
 
 total_by_year2<- aggregate(t_gross~movies.Year+movies.month, data=gross_df_aggregate, sum) 
-total_by_year2 <- total_by_year2 %>% filter(total_by_year2$movies.Year >2017)
+total_by_year2 <- total_by_year2 %>% filter(total_by_year2$movies.Year >2018)
 total_by_year2$date <- with(total_by_year2, sprintf("%s-%02s", movies.Year, movies.month))
 
 year_merged <- merge(total_by_year1, total_by_year2, "date")
-tidy_merged <- data.frame(year_merged$date, year_merged$gross, year_merged$t_gross) %>% pivot_longer(!year_merged.date, names_to = "type", values_to = "gross")
+tidy_merged <- data.frame(year_merged$date, year_merged$gross, year_merged$t_gross) %>% pivot_longer(!year_merged.date, names_to = "type", values_to = "gross") %>% mutate(month = as.numeric(sub(".*-", "",year_merged.date)))
+tidy_merged$month <- month.abb[tidy_merged$month]
 
-g <- ggplot(year_merged, aes(x = year_merged$date, group = 1))
-g <- g + geom_line(aes(y = year_merged$gross), color = "red")
-g <- g + geom_line(aes(y = year_merged$t_gross), color = "blue")
+
+g <- ggplot(tidy_merged, aes(x = year_merged.date, y = gross, group = type, color = type)) + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,2500), labels=scales::dollar_format(suffix = "M"), breaks = c(0,500,1000,1500, 2000,2500)) + scale_color_manual(name = "Gross Type", labels = c("Gross", "Total Gross"), values = c("Red", "Blue")) +  xlab("Month") + ylab("Aggregate Studio Gross") +theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "bottom")+ggtitle("Cinematic Total Gross and Gross Over Time - Constrained 2019-2021") 
+
+
+g <- g + annotate("rect", xmin = 15, xmax = 17, ymin = 0, ymax = 2500, alpha = 0.1, fill = "blue") + annotate(geom="text", x=16, y=2200, label = wrapper(my_label, width = 10))
+
 g
 
 
 ```
 
 
+Next, we decided to take a look at the studio level. For this analysis, we turned only to "total gross", as we felt it better described the success of the movie. Because total gross includes streaming and sales revenue outside of the actual theater, especially with COVID-19 forcing viewers to watch movies from home, we felt that this was a better metric to observe moving forward. Therefore, any chart that references "gross" implies total gross. 
 
-## Studios across the board have struggled too 
 
-Filtering only studios who have made over 1B and less than 1B
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-gross <- as.numeric(movies$Total.Gross)/100000
+gross <- as.numeric(movies$Total.Gross)/1000000
 
 
 studio_df <- data.frame(gross, movies$Studio, movies$Year)
@@ -101,43 +126,79 @@ total_by_studio<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
 aggregate_df<- aggregate(gross~movies.Studio+movies.Year, data=studio_df, sum) %>%
   arrange(desc(gross)) 
 
-final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y>10000)
+
+
+final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y>2000)
+
+
+g_over_2b <- ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
+  geom_line() + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,4500), labels=scales::dollar_format(suffix = "M"), breaks = c(0,1000,2000,3000,4000)) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) + xlab("Year") + ylab("Aggregate Studio Gross") +theme(legend.position = "right")+ggtitle("Total Gross by Studio - Over $2B 2011-2021")+scale_color_discrete(name = "Studio")
+
+final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y<2000, gross.y>1000)
 
 
 g_over_1b <- ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
-  geom_line()
+  geom_line() + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) + xlab("Year") + ylab("Aggregate Studio Gross") +ggtitle("Total Gross - Between $2B and $1B 2011-2021")+scale_color_discrete(name = "Studio")+theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "right")
 
-final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y<10000, gross.y>5000)
+final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y<1000, gross.y>500)
 
 
 g_over_500M <- ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
-  geom_line()
+  geom_line() + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,400), labels=scales::dollar_format(suffix = "M"), breaks = c(0,100,200,300,400)) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) + xlab("Year") + ylab("Aggregate Studio Gross") +ggtitle("Total Gross - Between $500m - $1B 2011-2021")+scale_color_discrete(name = "Studio")+theme(axis.text.x = element_text(angle = 90, hjust = 1), legend.position = "right")
 
-
-final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y<5000, gross.y>1000)
+final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y<500, gross.y>100, movies.Studio != "-")
 
 
 g_less_500M <- ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
-  geom_line()
+  geom_line() + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,250), labels=scales::dollar_format(suffix = "M"), breaks = c(0,50,100,150,200, 250)) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) + xlab("Year") + ylab("Aggregate Studio Gross") +theme(legend.position = "right")+ggtitle("Total Gross by Studio - Less than $500m 2011-2021")+scale_color_discrete(name = "Studio")
 
 
-
-g_over_1b 
-g_over_500M 
-g_less_500M
-
-for_table <- data.frame(gross, movies$Studio, movies$Year, movies$Title) %>% filter(movies$Studio %in% c("Walt Disney Studios Motion Pictures", "Warner Bros.", "Universal Pictures", "Twentieth Century Fox", "The Weinstein Company", "Sony Pictures Entertainment (SPE)", "Paramount Pictures", "Lionsgate"))
-  
   
 ```
 
+When we take a look at studio revenue, there are certain ones that stand out. Because the list includes independent studios that have only 1-2 releases every few years, we need to filter by total gross over the period 2011-2021. The first group are all studios that grossed over $2B in this period. Clearly, Disney is the clear winner. From 2016 - 2019, largely driven by the success of the Marvel franchise, they saw significantly higher grosses than competitors. 
 
-## Ratings over time 
+```{r, echo=FALSE}
+
+g_over_2b
+
+
+```
+
+
+Smaller studios saw pretty flat gross curves during this period:
 
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+g_over_1b 
+
+```
+
+
+
+```{r, echo=FALSE}
+
+g_over_500M 
+
+```
+
+The smallest studios have more movement than the larger ones. What is particularly interesting are the new studios who only started releasing movies starting in 2018/2019. Because we calculated the aggrgate over the period 2011-2021, it will be interesting to see if their aggregate gross over the next 5 years bumps them into other gross bands. 
+
+```{r, echo=FALSE}
+
+g_less_500M
+
+```
+
+
+## Average Ratings  
+
+The next set of data we considered was how movies are rated. We aggregated from 2 sources, and have 3 metrics: Rotten Tomatoes Critic Scores, Rotten Tomatoes Audience Scores, and IMDB Ratings. As we can see in the charts below, the averages are constrained between ~50 and ~75. However, when we zoom in, we can start to see some more nuances form. Until 2018, the 3 sets of ratings generally followed a similar pattern. However, once we reach 2019, the audience scores from Rotten Tomatoes are much more positive, and average above 70. 
+
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 month <- as.numeric(movies$month)
@@ -263,62 +324,165 @@ names(averages_transposed)[2] <- "years"
 names(averages_transposed)[1] <- "avg"
 total_ratings_aggregate$imdb <- averages_transposed$avg
 
+tidy_total_ratings_ag <- total_ratings_aggregate %>% pivot_longer(!years, names_to = "source", values_to = "ratings")
+
+
+g1 <- ggplot(tidy_total_ratings_ag, aes(x = years, y = ratings, group = source, color = source)) + geom_line(size = 1.5) + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100)) + scale_color_manual(name = "Source", labels = c("Audience Score", "Critic Score", "IMDB Score"), values = c("Red", "Blue", "Green")) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) +  xlab("Year") + ylab("Average Rating") +theme(legend.position = "bottom")+ggtitle("Average Rating by Source - 0-100") 
+
+g2 <- ggplot(tidy_total_ratings_ag, aes(x = years, y = ratings, group = source, color = source)) + geom_line(size = 1.5) + scale_y_continuous(limits = c(45,75), breaks = c(45,50,55,60, 65, 70, 75)) + scale_color_manual(name = "Source", labels = c("Audience Score", "Critic Score", "IMDB Score"), values = c("Red", "Blue", "Green")) + scale_x_continuous(breaks = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)) +  xlab("Year") + ylab("Average Rating") +theme(legend.position = "bottom")+ggtitle("Average Rating by Source - Scaled") 
+
+
+g1
+g2
+
+```
+
+
+Now that we know how the average has trended over time, also want to see from each source, what the distribution of scores look like. In order to accomplish that, we created histograms. 
 
 
 
-g <- ggplot(total_ratings_aggregate, aes(x = years))
-g <- g + geom_line(aes(y = audience), color = "red")
-g <- g + geom_line(aes(y = critic), color = "blue")
-g <- g + geom_line(aes(y = imdb), color = "purple")
-g
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+
+IMDB <- as.numeric(movies$average_rating)*10
+Audience <- as.numeric(movies$Score_Audience)
+Critic <- as.numeric(movies$Score_Rotten)
+
+histogram_df <- data.frame(movies$Title, IMDB, Audience, Critic) %>% filter(IMDB>0, Audience>0, Critic>0) %>% pivot_longer(!movies.Title, names_to = "source", values_to = "rating")
+
+ggplot(data = histogram_df, mapping = aes(x = rating)) + 
+  geom_histogram(binwidth = 5,color = "grey30", fill = "white") + facet_wrap(~ source) + ggtitle("Histogram of Ratings by Source")+   theme(plot.title = element_text(hjust = 0.5))
+
+
 
 ```
 
 
 
+What this shows us it that IMDB scores have a much tighter distribution around scores in the 60-65 range. Compared to rotten tomatoe scores that see a fatter right tail, and are more equally distributed compared to the IMDB ratings. 
 
+We can then check to see how normal each distribution is: 
 
-## Correlation between audience and critic scores - aggregate 
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+
+IMDB <- as.numeric(movies$average_rating)*10
+Audience <- as.numeric(movies$Score_Audience)
+Critic <- as.numeric(movies$Score_Rotten)
+
+
+IMDB_mean = mean(IMDB, na.rm = TRUE)
+IMDB_sd = sd(IMDB, na.rm = TRUE)
+
+Audience_mean = mean(Audience, na.rm = TRUE)
+Audience_sd = sd(Audience, na.rm = TRUE)
+
+Critic_mean = mean(Critic, na.rm = TRUE)
+Critic_sd = sd(Critic, na.rm = TRUE)
+
+histogram_df <- data.frame(movies$Title, IMDB, Audience, Critic) %>% filter(IMDB>0, Audience>0, Critic>0) %>% pivot_longer(!movies.Title, names_to = "source", values_to = "rating")
+
+g_imdb <- ggplot(data = histogram_df %>% filter(source =="IMDB"), mapping = aes(x = rating)) + 
+  geom_histogram(aes(y = ..density..), binwidth = 5,color = "grey30", fill = "white") + ggtitle("Comparing IMDB Scores to Norm")+   theme(plot.title = element_text(hjust = 0.5))+ geom_density(alpha =0.2, fill = "antiquewhite3") +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = IMDB_mean, sd = IMDB_sd), 
+    lwd = 2, 
+    col = 'red'
+  )
+
+
+g_audience <- ggplot(data = histogram_df %>% filter(source =="Audience"), mapping = aes(x = rating)) + 
+  geom_histogram(aes(y = ..density..),binwidth = 5,color = "grey30", fill = "white") + ggtitle("Comparing Audience Scores to Norm")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_audience<- g_audience + geom_density(alpha =0.2, fill = "antiquewhite3")+
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = Audience_mean, sd = Audience_sd), 
+    lwd = 2, 
+    col = 'red'
+  )
+
+
+g_critic <- ggplot(data = histogram_df %>% filter(source =="Critic"), mapping = aes(x = rating)) + 
+  geom_histogram(aes(y = ..density..),binwidth = 5,color = "grey30", fill = "white") + ggtitle("Comparing Critic Scores to Norm")+   theme(plot.title = element_text(hjust = 0.5))
+
+g_critic<- g_critic + geom_density(alpha =0.2, fill = "antiquewhite3")+
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = Critic_mean, sd = Critic_sd), 
+    lwd = 2, 
+    col = 'red'
+  )
+
+
+g_audience+g_critic+g_imdb+plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+
+
+
+
+
+```
+
+And here we have some more insight to our ratings data! Clearly the IMDB data is the closest to being normally distributed, whereas the rotten tomatoes scores have much fatter right tails. 
+
+
+The next step in our calculations is looking at the correlations between ratings. In order to accomplish this, we created 3 sets of scatter plots. We also wanted to see what the difference between high grossing movies was, and lower grossing movies were. Therefore, we faceted by: all movies, movies that grossed over 100M, movies that grossed over 200M, and movies that gross over 500M. 
+
+
+
+## Comparing Ratings Metrics
+
+**Rotten Tomatoes - Audience vs. Critic Scores**
+
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+correlation_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
 
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = critic_score)) + geom_point()
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = critic_score)) + geom_point()
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = critic_score)) + geom_point()
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = critic_score)) + geom_point()
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = critic_score)) + geom_point() +geom_smooth(method = lm)+  xlab("Critic Score") + ylab("Audience Score") +ggtitle("All Titles")  + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g2<- ggplot(correlation_df %>% filter(gross > 100), aes(x = audience_score, y = critic_score)) + geom_point()  +geom_smooth(method = lm) +  xlab("Critic Score") + ylab("Audience Score") +ggtitle("Gross > $100M")+ scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g3<- ggplot(correlation_df %>% filter(gross > 200), aes(x = audience_score, y = critic_score)) + geom_point()  +geom_smooth(method = lm)+  xlab("Critic Score") + ylab("Audience Score") +ggtitle("Gross > $200M")+ scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g4<- ggplot(correlation_df %>% filter(gross > 500), aes(x = audience_score, y = critic_score)) + geom_point()  +geom_smooth(method = lm)+  xlab("Critic Score") + ylab("Audience Score") +ggtitle("Gross > $500M")+ scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 
-#test 
-
 ```
 
 
-## Correlation between audience and IMDB score - aggregate 
+Clearly, from the scatter plots, there is a high degree of correlation between audience scores and critic scores from Rotten Tomatoes. This applies across all grossing movies. 
+
+
+**IMDB Rating vs. Rotten Tomatoes Audience Score**
 
 ```{r, echo=FALSE}
 
 gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+correlation_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
 
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = rating)) + geom_point()
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = rating)) + geom_point()
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = rating)) + geom_point()
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = rating)) + geom_point()
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = rating)) + geom_point() +geom_smooth(method = lm) +  xlab("Audience Score") + ylab("IMDB Rating") +ggtitle("All Titles") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Audience Score") + ylab("IMDB Rating") +ggtitle("Gross > $100M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Audience Score") + ylab("IMDB Rating") +ggtitle("Gross > $200M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Audience Score") + ylab("IMDB Rating") +ggtitle("Gross > $500M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
@@ -326,22 +490,21 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
 
-
-## Correlation between critic and IMDB score - aggregate 
+**IMDB Rating vs. Rotten Tomatoes Critic Score**
 
 ```{r, echo=FALSE}
 
 gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
+correlation_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
 
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = rating)) + geom_point()
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = rating)) + geom_point()
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = rating)) + geom_point()
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = rating)) + geom_point()
+g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = rating)) + geom_point() +geom_smooth(method = lm)+  xlab("Critic Score") + ylab("IMDB Rating") +ggtitle("All Titles") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Critic Score") + ylab("IMDB Rating") +ggtitle("Gross > $100M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Critic Score") + ylab("IMDB Rating") +ggtitle("Gross > $200M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
+g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = rating)) + geom_point()+geom_smooth(method = lm)+  xlab("Critic Score") + ylab("IMDB Rating") +ggtitle("Gross > $500M") + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
@@ -349,68 +512,18 @@ g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 ```
 
 
+Clearly, in aggregate, there is a high degree of correlation between Audience Scores (Rotten Tomatoes) and Critic Scores (Rotten Tomatoes). It's interesting, though, when we compare the Rotten Tomatoes scores with IMDB, we can see that for movies with higher grosses, there is a lower level of correlation. 
+
+The next cut we wanted to include is looking at how these scores are correlated over time. As we saw in the line chart, there was some deviation after 2018, so it will be important to see what that looks like from a scatter plot perspective. 
 
 
-## Correlation between total gross and audience score - aggregate 
+## How Have Ratings Compared Over Time? 
 
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-
-g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
-
-
-#test 
-
-```
-
-
-
-## Correlation between total gross and critic score - aggregate 
-
-```{r, echo=TRUE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-
-g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
-
-
-#test 
-
-```
-
-
-
-
-## Correlation by year - audience vs. critic 
+As we saw in the time series chart, the ratings behavior differed over time. Therefore, we faceted our scatter plots by year. 
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
@@ -419,10 +532,10 @@ audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 year <- movies$Year
 
-total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
 
 year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = audience_score, y = critic_score)) + geom_point()+ 
-  geom_smooth(method=lm) +facet_wrap(~year)
+  geom_smooth(method=lm) +facet_wrap(~year)+  xlab("Critic") + ylab("Audience") +ggtitle("Audience Vs. Critic Scores")  + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 year_chart
 
@@ -430,25 +543,24 @@ year_chart
 ```
 
 
+Just as before, the audience scores and critic scores on rotten tomatoes appear to be highly correlated. 
 
-
-## Correlation by year - imdb vs. audience 
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 year <- movies$Year
 
-total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
 
 year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = audience_score)) + geom_point()+ 
-  geom_smooth(method=lm) +facet_wrap(~year)
+  geom_smooth(method=lm) +facet_wrap(~year)+  xlab("IMDB") + ylab("Audience") +ggtitle("Audience Vs. IMDB Scores")  + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 year_chart
 
@@ -457,24 +569,21 @@ year_chart
 
 
 
-
-## Correlation by year - imdb vs. critic 
-
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
 
 gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 year <- movies$Year
 
-total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year)
+total_year <- data.frame(movies$Title, gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
 
 year_chart <- ggplot(total_year %>% filter(gross > 500), aes(x = rating, y = critic_score)) + geom_point()+ 
-  geom_smooth(method=lm) +facet_wrap(~year)
+  geom_smooth(method=lm) +facet_wrap(~year)+  xlab("IMDB") + ylab("Critic") +ggtitle("Critic Vs. IMDB Scores")  + scale_y_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))  + scale_x_continuous(limits = c(0,100), breaks = c(0,25,50,75, 100))
 
 year_chart
 
@@ -482,122 +591,50 @@ year_chart
 ```
 
 
+Clearly, before 2018, the scores are highly correlated. However, after 2018, the scores begin to deviate. 
+
+The next perspective we wanted to add was to see how scores impacted movie gross. In order to accomplish this, the first perspective we wanted to take was seeing a box and whisker plot to see based on score bands (in increments of 10), where gross was distributed. For the box and whisker plots, we decided to use only movies that grossed over $50M, because when we included smaller grossing films there was a significant amount of noise in the data. 
 
 
 
-## Correlation between total gross and IMDB score - aggregate 
+
+## Are Box Office Returns Tied to Audience Perception? 
+
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
 
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-
-g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+box_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
 
 
-#test 
-
-```
-
-
-
-## Correlation between total gross and critic score - aggregate 
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0, critic_score>50), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000, critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000,critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000,critic_score>50), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-
-g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
-
-
-#test 
-
-```
-
-
-
-
-
-## Correlation between total gross and IMDB score - aggregate 
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0, rating>5), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000, rating>5), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)
-
-g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
-
-
-#test 
-
-```
-
-
-
-
-
-
-
-##Box and Whisker - IMDB rating and gross 
-
-
-```{r, echo=FALSE}
-
-
-correlation_df$band <- 1
+box_df$band <- 1
   
   
   
-correlation_df <- correlation_df %>%
-                  mutate(band = ifelse(rating <1, "0-0.9", 
-                                ifelse(rating<2, "1-1.9",
-                                      ifelse(rating<3,"2-2.9",
-                                             ifelse(rating<4,"3-3.9",
-                                                    ifelse(rating<5,"4-4.9",
-                                                           ifelse(rating<6,"5-5.9",
-                                                                  ifelse(rating<7,"6-6.9",
-                                                                         ifelse(rating<8,"7-7.9",
-                                                                                ifelse(rating<9,"8-8.9",
-                                                                                       ifelse(rating<=10,"9-10")))))))))))
+box_df <- box_df %>%
+                  mutate(band = ifelse(rating <10, "0-9", 
+                                ifelse(rating<20, "10- 19",
+                                      ifelse(rating<30,"20 - 29",
+                                             ifelse(rating<40,"30 -39",
+                                                    ifelse(rating<50,"40-49",
+                                                           ifelse(rating<60,"50-59",
+                                                                  ifelse(rating<70,"60-69",
+                                                                         ifelse(rating<80,"70-79",
+                                                                                ifelse(rating<90,"80-89",
+                                                                                       ifelse(rating<=100,"90-100")))))))))))
 
 
 
-g_imdb <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = band)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+g_imdb <- ggplot(data = box_df %>% filter(gross > 50), mapping = aes(x = gross, y = band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))+ scale_x_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
 
 g_imdb
 
@@ -605,438 +642,333 @@ g_imdb
 
 
 
-##Box and Whisker - audience rating and gross 
-
 
 ```{r, echo=FALSE}
 
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-correlation_df$audience_band <- 1
+
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+box_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
+
+
+box_df$band <- 1
   
-correlation_df <- correlation_df %>%
-                  mutate(audience_band = ifelse(audience_score <10, "0-0.9", 
-                                ifelse(audience_score<20, "1-1.9",
-                                      ifelse(audience_score<30,"2-2.9",
-                                             ifelse(audience_score<40,"3-3.9",
-                                                    ifelse(audience_score<50,"4-4.9",
-                                                           ifelse(audience_score<60,"5-5.9",
-                                                                  ifelse(audience_score<70,"6-6.9",
-                                                                         ifelse(audience_score<80,"7-7.9",
-                                                                                ifelse(audience_score<90,"8-8.9",
-                                                                                       ifelse(audience_score<=100,"9-10","na")))))))))))
+  
+  
+box_df <- box_df %>%
+                  mutate(audience_band = ifelse(audience_score <10, "0-9", 
+                                ifelse(audience_score<20, "10-19",
+                                      ifelse(audience_score<30,"20-29",
+                                             ifelse(audience_score<40,"30-39",
+                                                    ifelse(audience_score<50,"40-49",
+                                                           ifelse(audience_score<60,"50-59",
+                                                                  ifelse(audience_score<70,"60-69",
+                                                                         ifelse(audience_score<80,"70-79",
+                                                                                ifelse(audience_score<90,"80-89",
+                                                                                       ifelse(audience_score<=100,"90-100","na")))))))))))
 
 
 
-g_audience <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = audience_band)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Audience ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+g_audience <- ggplot(data = box_df %>% filter(gross > 50), mapping = aes(x = gross, y = audience_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Audience ratings band")+   theme(plot.title = element_text(hjust = 0.5))+ scale_x_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
 
 g_audience
 
 ```
 
 
-##Box and Whisker - critic rating and gross 
-
-
 ```{r, echo=FALSE}
 
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-correlation_df$critic_band <- 1
+
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+
+box_df <- data.frame(gross, rating, audience_score, critic_score) %>% filter(rating>0, audience_score>0, critic_score>0)
+
+
+box_df$band <- 1
   
-correlation_df <- correlation_df %>%
-                  mutate(critic_band = ifelse(critic_score <10, "0-0.9", 
-                                ifelse(critic_score<20, "1-1.9",
-                                      ifelse(critic_score<30,"2-2.9",
-                                             ifelse(critic_score<40,"3-3.9",
-                                                    ifelse(critic_score<50,"4-4.9",
-                                                           ifelse(critic_score<60,"5-5.9",
-                                                                  ifelse(critic_score<70,"6-6.9",
-                                                                         ifelse(critic_score<80,"7-7.9",
-                                                                                ifelse(critic_score<90,"8-8.9",
-                                                                                       ifelse(critic_score<=100,"9-10","na")))))))))))
+  
+  
+box_df <- box_df %>%
+                  mutate(critic_band = ifelse(critic_score <10, "0-9", 
+                                ifelse(critic_score<20, "10-19",
+                                      ifelse(critic_score<30,"20-29",
+                                             ifelse(critic_score<40,"30-39",
+                                                    ifelse(critic_score<50,"40-49",
+                                                           ifelse(critic_score<60,"50-59",
+                                                                  ifelse(critic_score<70,"60-69",
+                                                                         ifelse(critic_score<80,"70-79",
+                                                                                ifelse(critic_score<90,"80-89",
+                                                                                       ifelse(critic_score<=100,"90-100","na")))))))))))
 
 
 
-g_critic <- ggplot(data = correlation_df %>% filter(gross > 1000), mapping = aes(x = gross, y = critic_band)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Critic ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+g_critic <- ggplot(data = box_df %>% filter(gross > 50), mapping = aes(x = gross, y = critic_band)) + 
+  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by Critic ratings band")+   theme(plot.title = element_text(hjust = 0.5))+ scale_x_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
 
 g_critic
 
 ```
 
 
+As we can see, *in general*, the higher the movies are rated, the more they gross. However, if we look closely at some of the middle ratings bands, e.g. 40-70, we do see a number of outliers popping up. 
+
+Now, we can take a look at the correlations. Because we saw that ratings differed over time in our previous exercise, we decided to include the facted point of view along with the aggregate view when presenting these charts. This way, we can get a more holistic viewpoint, and identify and behavior that might tell us a different story. 
+
+The first chart shows the correlation betwen Audience Score and total gross. 
 
 
-```{r, echo=FALSE}
-
-g_imdb + g_audience + g_critic + plot_layout(widths = 3, heights = 3)
-
-```
-
-
-
-## Aggregating and filtering top earning studios 
+**Gross vs. Rotten Tomatoes Audience Scores**
 
 ```{r, echo=FALSE}
 
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
 
-gross <- as.numeric(movies$Total.Gross)/100000
-
-
-studio_df <- data.frame(gross, movies$Studio)
-
-aggregate_df<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
-  arrange(desc(gross))
-
-
-
-
-```
-
-
-
-## Average IMDB rating by month and year
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-
-month <- as.numeric(movies$month)
-rating <- as.numeric(movies$average_rating)
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
-year <- as.numeric(movies$Year)
+year <- movies$Year
 
-averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
+gross_corr <- data.frame(gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
 
 
-months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
-years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
-
-averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
-  
-# assign column names
-colnames(averages_df) = years
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-
-averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
-
-my_range <- 1:12
-year_range <- 2011:2021
-
-k = 0
-
-for(i in year_range){
-  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  k = k+1
-  for(j in my_range){
-    
-    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$rating), averages_chart$month == j, averages_chart$year == i)
-    averages_df[j,k] = mean(averages_chart$rating)
-    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  }
-    
-}
-
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
-
-tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
-
-
-imdb_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
-  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
-
-```
-
-## Average audience rating by month and year
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-
-month <- as.numeric(movies$month)
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-year <- as.numeric(movies$Year)
-
-averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-
-
-months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
-years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
-
-
-averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
-  
-# assign column names
-colnames(averages_df) = years
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-
-averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
-
-my_range <- 1:12
-year_range <- 2011:2021
-
-k = 0
-
-for(i in year_range){
-  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  k = k+1
-  for(j in my_range){
-    
-    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$audience_score), averages_chart$month == j, averages_chart$year == i)
-    averages_df[j,k] = mean(averages_chart$audience_score)
-    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  }
-    
-}
-
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
-
-tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
-
-
-audience_time<- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
-  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
-
-```
-
-
-## Average critic rating by month and year
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-
-month <- as.numeric(movies$month)
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-year <- as.numeric(movies$Year)
-
-averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-
-
-months <- data.frame(c(1,2,3,4,5,6,7,8,9,10,11,12))
-years = c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021)
-
-averages_df = data.frame(matrix(nrow = 12, ncol = length(years))) 
-  
-# assign column names
-colnames(averages_df) = years
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-
-averages_chart <- averages_chart %>% filter(averages_chart$month == 5, averages_chart$year == 2012)
-
-my_range <- 1:12
-year_range <- 2011:2021
-
-k = 0
-
-for(i in year_range){
-  averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  k = k+1
-  for(j in my_range){
-    
-    averages_chart <- averages_chart %>% filter(!is.na(averages_chart$critic_score), averages_chart$month == j, averages_chart$year == i)
-    averages_df[j,k] = mean(averages_chart$critic_score)
-    averages_chart <- data.frame(movies$Title, month, rating, audience_score, critic_score, year)
-  }
-    
-}
-
-
-averages_df$month = c(1,2,3,4,5,6,7,8,9,10,11,12)
-
-tidy_averages <- averages_df %>% pivot_longer(!month, names_to = "year", values_to = "averages")
-
-tidy_averages$Date <- with(tidy_averages, sprintf("%s-%02s", year, month))
-
-
-critic_time <- ggplot(tidy_averages, aes(Date, averages, fill=year)) + geom_col()+ 
-  theme(axis.text.x = element_text(angle = 65, hjust = 1)) 
-
-```
-
-
-## Average critic rating by month and year
-
-```{r, echo=FALSE}
-
-imdb_time
-audience_time
-critic_time
-
-```
-
-
-###GRAVEYARD
-
-#Filtering by "Good and bad movies"
-
-
-## Correlation between total gross and audience score - aggregate 
-
-```{r, echo=FALSE}
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
-audience_score <- as.numeric(movies$Score_Audience)
-critic_score <- as.numeric(movies$Score_Rotten)
-
-correlation_df <- data.frame(gross, rating, audience_score, critic_score)
-
-g1<- ggplot(correlation_df %>% filter(gross > 0, audience_score>50), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm)
-g2<- ggplot(correlation_df %>% filter(gross > 1000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g3<- ggplot(correlation_df %>% filter(gross > 2000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
-g4<- ggplot(correlation_df %>% filter(gross > 5000, audience_score>50), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)
+g1<- ggplot(gross_corr %>% filter(gross > 0), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm) + scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("All Titles") + ylab("Gross") + xlab("Audience Score")
+g2<- ggplot(gross_corr %>% filter(gross > 100), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross > $100M")+ ylab("Gross") + xlab("Audience Score")
+g3<- ggplot(gross_corr %>% filter(gross > 200), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross > $200M")+ ylab("Gross") + xlab("Audience Score")
+g4<- ggplot(gross_corr %>% filter(gross > 500), aes(x = audience_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))  + ggtitle("Gross > $500M")+ ylab("Gross") + xlab("Audience Score")
 
 g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
 
 
-#test 
+ggplot(gross_corr %>% filter(gross > 0), aes(x = audience_score, y = gross)) + geom_point() +geom_smooth(method = lm) +facet_wrap(~year) + ggtitle("Gross vs. Audience Score by Year")+ scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
+
+
 
 ```
 
+As we can see, there exists a low level of correlation between audience scores and gross. Because the gross is so widely distributed, it appears that the audience rating has little relation to how much a movie makes at the box office. 
 
 
 
 
-## Aggregating and filtering top earning studios 
+**Gross vs. Rotten Tomatoes Critic Scores**
 
 ```{r, echo=FALSE}
 
 movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
 
-gross <- as.numeric(movies$Total.Gross)/100000
-
-
-studio_df <- data.frame(gross, movies$Studio, movies$Year)
-
-total_by_studio<- aggregate(gross~movies.Studio, data=studio_df, sum) %>%
-  arrange(desc(gross))
-
-aggregate_df<- aggregate(gross~movies.Studio+movies.Year, data=studio_df, sum) %>%
-  arrange(desc(gross)) 
-
-final_merged <- merge(aggregate_df, total_by_studio, "movies.Studio") %>% filter(gross.y>20000)
-
-
-ggplot(data=final_merged, aes(x=movies.Year, y=gross.x, color = movies.Studio))+ 
-  geom_line()
-
-
-for_table <- data.frame(gross, movies$Studio, movies$Year, movies$Title) %>% filter(movies$Studio %in% c("Walt Disney Studios Motion Pictures", "Warner Bros.", "Universal Pictures", "Twentieth Century Fox", "The Weinstein Company", "Sony Pictures Entertainment (SPE)", "Paramount Pictures", "Lionsgate"))
-  
-  
-```
-
-
-
-## CORRELATION by genre
-
-```{r, echo=FALSE}
-
-
-movies <- read.csv("/Users/Charlie Sturr/OneDrive/Desktop/Columbia/01. Fall_2021/Data Viz/MOVIES_Final_12.11.2021_vAC.csv")
-
-head(movies)
-
-gross <- as.numeric(movies$Total.Gross)/100000
-rating <- as.numeric(movies$average_rating)
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
 audience_score <- as.numeric(movies$Score_Audience)
 critic_score <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+gross_corr <- data.frame(gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
+
+g1<- ggplot(gross_corr %>% filter(gross > 0), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm) + scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("All Titles") + ylab("Gross") + xlab("Critic Score")
+g2<- ggplot(gross_corr %>% filter(gross > 100), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$100M") + ylab("Gross") + xlab("Critic Score")
+g3<- ggplot(gross_corr %>% filter(gross > 200), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$200M") + ylab("Gross") + xlab("Critic Score")
+g4<- ggplot(gross_corr %>% filter(gross > 500), aes(x = critic_score, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$500M") + ylab("Gross") + xlab("Critic Score")
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+ggplot(gross_corr %>% filter(gross > 0), aes(x = critic_score, y = gross)) + geom_point() +geom_smooth(method = lm) +facet_wrap(~year)+ ggtitle("Gross vs. Critic Score by Year")+ scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
+
+
+ 
+
+```
+
+This trend continues when we compare critic scores - the best fit line is relatively flat, and the outliers we mentioned earlier seem to make the correlation weaker. 
+
+
+
+**Gross vs. Rotten Tomatoes IMDB Scores**
+
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/1000000
+rating <- as.numeric(movies$average_rating)*10
+audience_score <- as.numeric(movies$Score_Audience)
+critic_score <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+gross_corr <- data.frame(gross, rating, audience_score, critic_score, year) %>% filter(rating>0, audience_score>0, critic_score>0)
+
+
+g1<- ggplot(gross_corr %>% filter(gross > 0), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm) + scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("All Titles") + ylab("Gross") + xlab("IMDB Rating")
+g2<- ggplot(gross_corr %>% filter(gross > 100), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$100M") + ylab("Gross") + xlab("IMDB Rating")
+g3<- ggplot(gross_corr %>% filter(gross > 200), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$200M") + ylab("Gross") + xlab("IMDB Rating")
+g4<- ggplot(gross_corr %>% filter(gross > 500), aes(x = rating, y = gross)) + geom_point()+geom_smooth(method = lm)+ scale_x_continuous(limits = c(0,100),  breaks = c(0,25,50,75,100)) + scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000)) + ggtitle("Gross >$500M") + ylab("Gross") + xlab("IMDB Rating")
+
+g1 + g2 + g3 + g4 +plot_layout(widths = c(1, 1), heights = c(1,1))
+
+
+ggplot(gross_corr %>% filter(gross > 0), aes(x = rating, y = gross)) + geom_point() +geom_smooth(method = lm) +facet_wrap(~year)+ ggtitle("Gross vs. IMDB Rating by Year")+ scale_y_continuous(limits = c(0,1000), labels=scales::dollar_format(suffix = "M"), breaks = c(0,250,500,750,1000))
+
+
+
+```
+
+Here, when we look at the IMDB ratings, we start to see some more nuance. When we look at the aggregate chart, the best fit line has a steeper slope compared to the Rotten Tomatoes ratings. As we saw, the Rotten Tomatoes had a wider distribution, and were less clustered around the mean from our histograms. What's interesting is that when we start to constrict our sample and only include higher grossing movies, the correlation actually appears to be somewhat more positive. So now, the next question is, how has this trended over time? Well in order to get a better POV, we constructed the following correlation table for each year. 
+
+
+
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+Gross <- as.numeric(movies$Total.Gross)/100000
+IMDB <- as.numeric(movies$average_rating)*10
+Audience <- as.numeric(movies$Score_Audience)
+Critic <- as.numeric(movies$Score_Rotten)
+year <- movies$Year
+
+gross_corr <- data.frame(Gross, IMDB, Audience, Critic, year) %>% filter(rating>0, audience_score>0, critic_score>0)
+
+year_range <- 2011:2021
+corr_table = data.frame(matrix(nrow = 11, ncol = 3)) 
+colnames(corr_table) = c("IMDB", "Audience", "Critic")
+rownames(corr_table) = year_range
+
+
+k = 1
+for(i in year_range){
+  gross_corr <- data.frame(Gross, IMDB, Audience, Critic, year) %>% filter(rating>0, audience_score>0, critic_score>0)
+  gross_corr <- gross_corr %>% filter(year == i)
+  corr_table[k,1] = cor(gross_corr$Gross, gross_corr$IMDB)
+  corr_table[k,2] = cor(gross_corr$Gross, gross_corr$Audience)
+  corr_table[k,3] = cor(gross_corr$Gross, gross_corr$Critic)
+  k = k+1
+}
+
+
+
+```
+
+
+
+
+```{r, echo=FALSE}
+
+knitr::kable(corr_table, caption = "Correlation Between Gross and Rating by Year")
+
+
+```
+
+
+
+
+
+
+As we can see, there are varying levels of correlation for each year and for each source. What's interesting, is that in some years, the IMDB level of correlation with gross is high, and the Rotten Tomatoes correlation is low. The inverse is also true in some years.
+
+
+
+
+
+```{r, echo=FALSE}
+
+
+ggpairs(gross_corr, columns = 1:4)
+
+
+```
+
+Lastly, we can take a look at, in aggregate. What this tells us is that even if we want to ascribe some value to Rotten Tomatoes, or IMDB ratings being highly correlated with box office succes, the numbers just don't seem to back it up.  
+
+Now we must ask ourselves, what is the next metric we should look at? 
+
+The last cut that we wanted to include to round out our analysis is looking at the impact of genre. Because there are a number of genres, the most efficient way to categorize our data is by using a principle component analysis and including a biplot charting how gross and ratings are impacted by genre. 
+
+
+## The Last Comparison - How Does Genre Play a Roll? 
+
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/100000
+IMDB <- as.numeric(movies$average_rating)*10
+Audience <- as.numeric(movies$Score_Audience)
+Critic <- as.numeric(movies$Score_Rotten)
 
 genre_df <- data.frame(movies$Title, gross, audience_score, critic_score, rating, movies$genre1, movies$genre2, movies$genre3, movies$genre)
+
 colnames(genre_df) = c("title", "gross", "score_audience", "score_rotten", "average_rating", "genre1", "genre2", "genre3", "genre")
 
 aggregate_genre1<- aggregate(gross~genre1, data=genre_df, sum) %>%
   arrange(desc(gross))
 
-aggregate_genre2<- aggregate(gross~genre2, data=genre_df %>% filter(genre_df$genre2 != ""), sum) %>%
-  arrange(desc(gross))
 
-aggregate_genre3<- aggregate(gross~genre3, data=genre_df %>% filter(genre_df$genre3 != ""), sum) %>%
-  arrange(desc(gross))
-
-aggregate_genre <- aggregate(gross~genre, data=genre_df %>% filter(genre_df$genre != ""), sum) %>% 
-  arrange(desc(gross))
+genre_1_imbd <- aggregate(IMDB~genre1, data = genre_df, mean)
+genre_1_critic <- aggregate(Critic~genre1, data = genre_df, mean)
+genre_1_audience <- aggregate(Audience~genre1, data = genre_df, mean)
 
 
-genre1_unique <- unique(genre_df$genre1)
-genre2_unique <- unique(genre_df$genre2)
-genre3_unique <- unique(genre_df$genre3)
-
-genre_unique <- unique(genre_df$genre)
-
-
-g_genre1 <- ggplot(data = genre_df %>% filter(gross > 1000), mapping = aes(x = gross, y = genre1)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
-
-
-g_genre2 <- ggplot(data = genre_df %>% filter(gross > 1000), mapping = aes(x = gross, y = genre2)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
-
-
-g_genre3 <- ggplot(data = genre_df %>% filter(gross > 1000), mapping = aes(x = gross, y = genre3)) + 
-  geom_boxplot(outlier.color = 'red') + xlab("gross") + ylab("ratings band") + ggtitle("Box Plot of gross by IMDB ratings band")+   theme(plot.title = element_text(hjust = 0.5))
+biplot <- merge(aggregate_genre1, genre_1_imbd, "genre1")
+biplot2 <- merge(biplot, genre_1_audience, "genre1")
+biplot3 <- merge(biplot2,genre_1_critic, "genre1")
 
 
 
+for_pca <- biplot3 %>% mutate(gross_scaled = (gross - mean(gross))/sd(gross)) %>% mutate(imdb_scale = (IMDB-mean(IMDB))/sd(IMDB)) %>%mutate(audience_scale = (Audience-mean(Audience))/sd(Audience))%>% mutate(critic_scale = (Critic-mean(Critic))/sd(Critic))
 
-g_genre1
-g_genre2
-g_genre3
+for_pca <- for_pca[-c(2:5)]
 
+colnames(for_pca) = c("Genre", "Gross", "IMDB", "Audience", "Critic")
 
-genre_filtered <- genre_df %>% filter(gross>50, genre1 == c("Action", "Adventure", "Comedy", "Biography", "Horror", "Documentary", "Animation"), score_audience != "MISSING VALUE")
-
-
-genre_correlation <- ggplot(genre_filtered, aes(x = score_audience, y = gross)) + geom_point()+ 
-  geom_smooth(method=lm) + facet_wrap(~genre1)
-
-genre_correlation
-
-
+pca <- prcomp(for_pca[,2:5], scale. = TRUE)
+ggbiplot(pca, labels = for_pca$Genre, scale = 1, varname.adjust = 1)
+ 
 
 
 
 ```
 
 
+And here we see some interesting details! When we look the different vectors, we can see that the genre itself is one of the bigger drivers of a movie's box office succes. If we look at the vector for "Gross", we can see that over two thirds of all genres fall within the upper half of the plane. Therefore, we can start to ask ourselves, how is gross distributed across genre? 
 
 
+```{r, echo=FALSE}
+
+movies <- read.csv("MOVIES_Final_12.11.2021_vAC.csv")
+
+gross <- as.numeric(movies$Total.Gross)/1000000000
+IMDB <- as.numeric(movies$average_rating)*10
+Audience <- as.numeric(movies$Score_Audience)
+Critic <- as.numeric(movies$Score_Rotten)
+
+genre_df <- data.frame(movies$Title, gross, audience_score, critic_score, rating, movies$genre1, movies$genre2, movies$genre3, movies$genre)
+
+colnames(genre_df) = c("title", "gross", "score_audience", "score_rotten", "average_rating", "genre1", "genre2", "genre3", "genre")
+
+aggregate_genre1<- aggregate(gross~genre1, data=genre_df, sum) %>%
+  arrange(desc(gross))
+
+aggregate_genre_final <- head(aggregate_genre1, -9) %>% filter(genre1 != "MISSING VALUE")
+
+ggplot(aggregate_genre_final, aes(x = reorder(genre1, -gross), y = gross)) + geom_bar(stat = "identity") + scale_y_continuous(limits = c(0,60), labels=scales::dollar_format(suffix = "B"), breaks = c(0,10,20,30,40,50,60)) + ylab("Gross")+xlab("Genre")+ggtitle("Aggregate Gross by Genre 2011-2021")
 
 
+```
 
 
-
-
-
-
-
-
-
-
+And here is what we were missing! At the end of the day, when we look at total gross by genre, it's highly concentrated in Action, Adventure, and Comedy. This makes sense when we consider some of the biggest box office successes over the last decade. Star Wars, Marvel Movies, and other action franchises have dominated the box offices, and so therefore it appears that the consolidation of genres is driving a lot of this revenue. 
 
 
 
