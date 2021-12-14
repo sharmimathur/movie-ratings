@@ -13,6 +13,7 @@ studio budgets, audience / critic perception, and box office performance, to see
 have taken any basic statistics courses and are justified in their complaints about the negative impact
 of Rotten Tomatoes (and others).
 
+
 ### Our questions are as follows:
 1. How have Rotten Tomatoes / Metacritic / IMDB Ratings trended over time? Are audiences
 getting more or less pessimistic?
