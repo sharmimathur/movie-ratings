@@ -1,9 +1,9 @@
 # Data transformation
 
-The data transofrmation process was relatively straightforward. For each source, we will go through how and in what platforms we aggregated the values.
+The data transformation process was relatively straightforward. For each source, we will go through how and in what platforms we aggregated the values.
 
 ## Box Office Mojo
-The box office mojo data set is presented in a simple table that is easily scraped from the website. For each year we were evaluating, we filted by top 200 movies, and imported the data into a CSV by title. From there, we had an aggregate list of 2,200 movies from 2011-2021. 
+The box office mojo data set is presented in a simple table that is easily scraped from the website. For each year we were evaluating, we filtered by top 200 movies, and imported the data into a CSV by title. From there, we had an aggregate list of 2,200 movies from 2011-2021. 
 
 
 ## Rotten Tomatoes
@@ -19,7 +19,6 @@ From there, we imported a new .dat file that was the aggregate list of 2,200 mov
 
 ## Aggregation
 After our scraping from the 3 sources, we had 3 unique CSV files. We merged these files by title, to create our aggregate list of movies and the corresponding data points. 
-=======
 * Scraping box office mojo
   *adding to a .csv
 * Downloaded data from imdb
