@@ -127,6 +127,476 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<p>Here, we have a multi-line graph where each line represents a movie studio. By hovering over a point, you can see the studio, year, and total gross. You can see from the graph that Disney sweeps in 2018 and 2019. This is because of the Avengers movies, Infinity War and Endgame. Universal Pictures also has a peak in 2015 due to Jurassic World. Lionsgate has a small rise from 2012-2014 due to the Hunger Games franchise.</p>
+<!-- load the d3.js library -->
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script>
+
+// set the dimensions and margins of the graph
+var margin = {top: 70, right: 70, bottom: 70, left: 70},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// parse the date / time
+var parseTime = d3.timeParse("%Y");
+
+// set the ranges
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+
+// define the 1st line
+var valueline_lion = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Lionsgate"]); });
+
+// // define the 1st line
+var valueline_para = d3.line()
+.x(function(d) { return x(d.date); })
+.y(function(d) { return y(d["Paramount Pictures"]); });
+
+// // define the 2nd line
+var valueline_sony = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Sony Pictures Entertainment (SPE)"]); });
+
+// // define the 1st line
+var valueline_wein = d3.line()
+.x(function(d) { return x(d.date); })
+.y(function(d) { return y(d["The Weinstein Company"]); });
+
+// // define the 2nd line
+var valueline_fox = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Twentieth Century Fox"]); });
+
+// // define the 2nd line
+var valueline_univ = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Universal Pictures"]); });
+
+
+// // define the 2nd line
+var valueline_disney = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Walt Disney Studios Motion Pictures"]); });
+
+// // define the 2nd line
+var valueline_warn = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d["Warner Bros."]); });
+
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+
+
+
+//     console.log(valueline);
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+var line_lst = [];
+
+// Get the data
+d3.csv("d3_data_lines.csv").then(function(data) {
+
+
+  // format the data
+  data.forEach(function(d) {
+
+      d.date = parseTime(d.Year);
+      d["Lionsgate"] = +d["Lionsgate"]
+      d["Paramount Pictures"] = +d["Paramount Pictures"]
+      d["Sony Pictures Entertainment (SPE)"] = +d["Sony Pictures Entertainment (SPE)"]
+      d["The Weinstein Company"] = +d["The Weinstein Company"]
+      d["Twentieth Century Fox"] = +d["Twentieth Century Fox"]
+      d["Universal Pictures"] = +d["Universal Pictures"]
+      d["Walt Disney Studios Motion Pictures"] = +d["Walt Disney Studios Motion Pictures"]
+      d["Warner Bros."] = +d["Warner Bros."]
+
+    //   Object.keys(d).forEach(function(d1) {
+    //     if (
+    //         d1 == "Year"
+    //     ) {
+    //         d[d1] = parseTime(d.Year);
+    //     } else {
+    //         d[d1] = +d[d1];
+    //     }
+    // })
+
+}) ;
+
+
+
+    
+    // Object.keys(data[0]).forEach(function(d1) {
+    //     console.log(d1);
+    //     if (
+    //         d1 == "Year"
+    //     ) {
+    //     } else {
+    //         line_lst.push(d3.line()
+    //             .x(function(d) { return x(d.Year)})
+    //             .y(function(d) { return y(d[d1])})
+    //             );
+    //     }
+    // });
+
+    var formatTime = d3.timeFormat("%Y");
+
+
+
+    //   d.date = parseTime(d.Year);
+    //   d.close = +d.close;
+    //   d.open = +d.open;
+//   });
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) {
+    // var lst = [];
+    // Object.keys(d).forEach(function(d1) {
+    //     if (
+    //         d1 == "Year"
+    //     ) {
+            
+    //     } else {
+    //         lst.push(d[d1]);
+    //     }
+    // })
+
+    
+    return Math.max(
+        
+        d["Lionsgate"]
+    ,d["Paramount Pictures"]
+    ,d["Sony Pictures Entertainment (SPE)"]
+    ,d["The Weinstein Company"]
+    ,d["Twentieth Century Fox"]
+    ,d["Universal Pictures"]
+    ,d["Walt Disney Studios Motion Pictures"]
+    ,d["Warner Bros."]
+    ); })]);
+
+
+
+//   // Add the valueline path.
+svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#e41a1c")
+      .attr("d", valueline_lion);
+
+//   // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#377eb8")
+      .attr("d", valueline_para);
+//   // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#4daf4a")
+      .attr("d", valueline_sony);
+
+//   // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#984ea3")
+      .attr("d", valueline_wein);
+
+//   // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#ff7f00")
+      .attr("d", valueline_fox);
+
+//   // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#ffff33")
+      .attr("d", valueline_univ);
+
+//   // Add the valueline path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#a65628")
+      .attr("d", valueline_disney);
+
+//   // Add the valueline2 path.
+  svg.append("path")
+      .data([data])
+      .attr("class", "line")
+      .style("stroke", "#f781bf")
+      .attr("d", valueline_warn);
+
+// console.log(line_lst);
+//     line_lst.forEach(function(l){
+
+//         console.log(l);
+//         svg.append("path")
+//         .data([data])
+//         .attr("class", "line")
+//         .style("stroke", "red")
+//         .attr("d", l);
+
+//     });
+
+
+
+  // Add the X Axis
+  svg.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+      
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Lionsgate"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Lionsgate" + "<br/>" + formatTime(d.date) + "<br/>" + d["Lionsgate"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Paramount Pictures"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Paramount Pictures" + "<br/>" + formatTime(d.date) + "<br/>" + d["Paramount Pictures"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Sony Pictures Entertainment (SPE)"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Sony Pictures Entertainment (SPE)" + "<br/>" + formatTime(d.date) + "<br/>" + d["Sony Pictures Entertainment (SPE)"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+       
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["The Weinstein Company"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("The Weinstein Company" + "<br/>" + formatTime(d.date) + "<br/>" + d["The Weinstein Company"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Twentieth Century Fox"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Twentieth Century Fox" + "<br/>" + formatTime(d.date) + "<br/>" + d["Twentieth Century Fox"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+       svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Universal Pictures"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Universal Pictures" + "<br/>" + formatTime(d.date) + "<br/>" + d["Universal Pictures"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Walt Disney Studios Motion Pictures"]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Walt Disney Studios Motion Pictures" + "<br/>" + formatTime(d.date) + "<br/>" + d["Walt Disney Studios Motion Pictures"])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+svg.selectAll("dot")
+     .data(data)
+   .enter().append("circle")
+     .attr("r", 2)
+     .attr("cx", function(d) { return x(d.date); })
+     .attr("cy", function(d) { return y(d["Warner Bros."]); })
+     .on("mouseover", function(event,d) {
+       div.transition()
+         .duration(200)
+         .style("opacity", .9);
+       div.html("Warner Bros." + "<br/>" + formatTime(d.date) + "<br/>" + d["Warner Bros."])
+         .style("left", (event.pageX) + "px")
+         .style("top", (event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       div.transition()
+         .duration(500)
+         .style("opacity", 0);
+       });
+
+
+      var i=0;
+      var studios = ["Lionsgate","Paramount Pictures","Sony Pictures Entertainment (SPE)",
+      "The Weinstein Company","Twentieth Century Fox","Universal Pictures",
+      "Walt Disney Studios Motion Pictures","Warner Bros."]
+//   data.forEach(function(d) {
+//       console.log(studios[i]);
+//       console.log(d[studios[i]]);
+//     svg.append("text")
+//     .attr("transform", "translate(" + (width+3) + "," + y(d[studios[i]]) + ")")
+//     .attr("dy", ".35em")
+//     .attr("text-anchor", "start")
+//     .style("fill", "red")
+//     .text("Open");
+
+//     i = i + 1;
+
+//   });
+
+
+    // svg.selectAll('line').append("text")
+    //     .attr("class","label")
+    //     .datum(function(d) {
+    //         console.log(d);
+    //         return {
+    //             id: d.id,
+    //             value: d.values[d.values.length - 1]}; })
+    //     .attr("transform", function(d) {
+    //             return "translate(" + (xScale(d.value.date) + 10)  
+    //             + "," + (yScale(d.value.measurement) + 5 )+ ")"; })
+    //     .attr("x", 5)
+    //     .text(function(d) { return ("Serie ") + d.id; });
+});
+
+
+
+
+
+
+
+svg.append("text")
+    .attr("class", "x-label")
+    .attr("text-anchor", "top")
+    .attr("x", width/2 - 100)
+    .attr("y", height-400)
+    .text("Total Gross per Year by Studio");
+
+
+
+svg.append("text")
+    .attr("class", "x-label")
+    .attr("text-anchor", "end")
+    .attr("x", width/2)
+    .attr("y", height + 40)
+    .text("Year");
+
+svg.append("text")
+    .attr("class", "y-label")
+    .attr("text-anchor", "end")
+    .attr("y", height-420)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Total Gross (Million $)");
+
+    d3.select("x-label").style("font-family","'Segoe UI', Tahoma, Geneva, Verdana, sans-serif");
+</script>
 
 </div>
             </section>
