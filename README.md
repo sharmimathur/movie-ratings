@@ -6,7 +6,6 @@ resources as a way to gauge their interest in seeing the actual film, many execu
 the prevalence of online reviews. A 2017 New York Times article, which explores Hollywood’s reaction
 to a flat 2017 summer season, quotes industry insiders as saying: ”I think it’s [Rotten Tomatoes] the
 destruction of our business” (Brett Ratner, director, producer and film financier).
-
 For our final project, we decided to take a deeper look at the entertainment industry. Therefore, our
 questions and objectives for this project will be centered around exploring the relationship between
 studio budgets, audience / critic perception, and box office performance, to see if Hollywood executives
