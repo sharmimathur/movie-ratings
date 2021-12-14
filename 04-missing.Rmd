@@ -1,9 +1,11 @@
+# Missing Values
+
 ---
 title: "Missing Value"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(warning = FALSE,
@@ -22,7 +24,7 @@ df <- read.csv("MOVIES_Final_12.11.2021_vAC.csv",na.strings=c("","MISSING VALUE"
 Here, 
 The three chart shows us in which row do we have missing values. Like from the first bar chart, we can see that we are missing more than 750 rows of data in the Genre_3 or G_3 column. Using this data gives us a bit of an idea on how to proceed with further analysis.
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 
 missing_plot_function <- function(data, per = FALSE){
   
@@ -102,7 +104,7 @@ missing_plot_function(new_df)
 
 Here, we can see where in our dataset do we have na values or the missing values, which columns have more missing data.This tile visualization provides us with a concrete idea of the placement of the missing values. Example: We can see that there are a lot of movies with Genre_3 which are missing some values. Here we only took the data from 100-200. Just to show the example, and the visualization better.
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 new_df = df[100:150,]
 names(new_df) <- abbreviate(names(new_df), minlength=3)
 
@@ -127,7 +129,7 @@ ggplot(new_df,aes(x=key,y=reorder(new_id, -new_id),fill=missing)) +
 ## Looking For Missing Data In The Ratings: IMDB, Score_Audience and Score_Rotten
 Here, we created three extra columns to check whether we had any missing ratings or scores abd populated them with 1 and 0. 1 for True they are missing and 0 for false they are not. We can see that in our dataset, we had 150 missing IMDB ratings for our movies, and about 110 values for our audience score, and the total missing values for score_ratings were about 260.
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 
 column_name=df[,c(18,19,20)]
 sumdata=data.frame(value=apply(column_name,2,sum))

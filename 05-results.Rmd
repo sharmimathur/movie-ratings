@@ -15,7 +15,6 @@ knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       echo = TRUE)
 
-bookdown::render_book(new_session = TRUE)
 
 library(ggplot2)
 library(dplyr)
